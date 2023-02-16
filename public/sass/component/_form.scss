@@ -1,0 +1,32 @@
+.registro{
+    margin-top: 10%;
+    background-color: #3b82f6;
+    border-radius: 10px;
+    
+}
+
+.form-titulo{
+    text-align: center;
+}
+
+.form-registro-row{
+    display:grid;
+    grid-template-rows: 1fr 8fr 1fr;
+}
+
+.form-registro-col{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10%;
+    padding-bottom: 2%;
+    padding: 2%;
+}
+.form-registro-btn{
+    display:flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-text-register{
+    width: 40%;
+}

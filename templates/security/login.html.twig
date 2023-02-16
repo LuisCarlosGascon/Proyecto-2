@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="c-login">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form action="{{ path('app_login') }}" class="form-signin" method="post">
+                    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" name="_username" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+
+                    <label for="inputPassword" class="sr-only">Contraseña</label>
+                    <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+
+                    <input type="hidden" name="_target_path" value="/index">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+                </form>
+               ¿No tienes una cuenta? <a href="{{path('app_register')}}">Crear cuenta</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

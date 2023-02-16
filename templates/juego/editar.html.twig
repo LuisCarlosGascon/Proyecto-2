@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar un juego{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+<div class="c-tabla">
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Jugadores Mínimos</th>
+            <th>Jugadores Máximos</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos">{{form_widget(form.nombre,{'attr':{'value':juego.nombre}})}}</td>
+            <td class="tr-juegos">{{form_widget(form.descripcion,{'value':juego.descripcion,'attr':{'class':'form-control'}})}}</td>
+            <td class="tr-juegos">{{form_widget(form.min_jugadores,{'attr':{'value':juego.MinJugadores}})}}</td>
+            <td class="tr-juegos">{{form_widget(form.max_jugadores,{'attr':{'value':juego.MaxJugadores}})}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="mt-4">
+    <thead>
+        <tr>
+            <th>Alto</th>
+            <th>Ancho</th>
+            <th>Imagen</th>
+            <th>Imagen actual</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos">{{form_widget(form.alto,{'attr':{'value':juego.alto}})}}</td>
+            <td class="tr-juegos">{{form_widget(form.ancho,{'attr':{'value':juego.ancho}})}}</td>
+            <td class="tr-juegos">{{form_widget(form.imagen)}}</td>
+            <td class="tr-juegos"><img src="{{asset('img/' ~ juego.imagen)}}" width="50px" height="50px"></td>
+        </tr>
+    </tbody>
+</table>
+
+{{ form_widget(form.editar, { 'label': 'Editar Juego','attr':{'class':'btn btn-lg btn-primary mt-4'}}) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}

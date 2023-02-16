@@ -1,0 +1,29 @@
+.c-tabla{
+    margin-top:150px;
+    margin-left:15%;
+}  
+
+table{
+    text-align: left;
+    border-collapse: collapse;
+    width: 80%;
+    
+}
+
+th,td{
+    padding:20px;
+}
+
+thead{
+    background-color: black;
+    color:#06A3DA;
+}
+
+.c-juegos-datos:nth-child(even){
+    background-color: #8b5cf6;
+    color:black;
+}
+.c-juegos-datos:nth-child(odd){
+    background-color: #c4b5fd;
+    color:black;
+}

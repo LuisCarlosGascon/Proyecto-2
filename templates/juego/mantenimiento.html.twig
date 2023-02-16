@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mantenimiento{% endblock %}
+
+{% block body %}
+
+<div class="c-tabla">
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Jugadores Mínimos</th>
+            <th>Jugadores Máximos</th>
+            <th>Dimensiones</th>
+            <th>Imagen</th>
+            <th>⚙</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for juego in juegos %}
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos">{{juego.nombre}}</td>
+            <td class="tr-juegos">{{juego.acortaDescripcion}}</td>
+            <td class="tr-juegos">{{juego.MinJugadores}}</td>
+            <td class="tr-juegos">{{juego.MaxJugadores}}</td>
+            <td class="tr-juegos">{{juego.Dimensiones}}</td>
+            <td class="tr-juegos"><img src="{{asset('img/' ~ juego.imagen)}}" width="50px" height="50px"></td>
+            <td class="tr-juegos"><a href="{{url('app_juego_editar',{'id':juego.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':juego.id})}}">&#10006</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{# <span id="editar-juego" class="clicable">&#9998</span> #}
+
+
+<div id="modalJuegos" class="modal">
+    <div class="modal-contenido-juegos aparicion">
+        <span class="cerrar">&times;</span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="{{ path('app_login') }}" class="form-signin" method="post">
+                            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+                            <div class="col-12 mt-2">
+                            <label for="inputEmail" class="sr-only">Email</label>
+                            <input type="email" name="_username" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                            </div>
+                            <div class="col-12 mt-2">
+                            <label for="inputPassword" class="sr-only">Contraseña</label>
+                            <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                            <input type="hidden" name="_target_path" value="/index">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div> 
+
+
+{% endblock %}
