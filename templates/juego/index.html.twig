@@ -11,8 +11,8 @@
                     <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <img src="{{asset('img/' ~ juego.imagen)}}" class="service-icon">
                         <h4 class="mb-3">{{juego.nombre}}</h4>
-                        <p class="m-0">{{juego.descripcion}}</p>
-                        <a class="btn btn-lg btn-primary rounded" href="">
+                        <p class="m-0">{{juego.descripcion}} {{juego.id}}</p>
+                        <a class="btn btn-lg btn-primary rounded btn-juego" idjuego="{{juego.id}}">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -20,5 +20,9 @@
             {% endfor %}
             </div>
         </div>
-    </div>
+</div>
+
+<div id="modalJuegos">
+
+</div>
 {% endblock %}

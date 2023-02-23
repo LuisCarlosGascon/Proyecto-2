@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Distribucion;
+use App\Entity\Distribuciones;
+use App\Entity\Mesa;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\DistribucionRepository;
+use App\Repository\MesaRepository;
 use App\Repository\DistribucionesRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,30 +56,7 @@ class ApiDistribucionController extends AbstractController
     }
 
     
-    #[Route("/putDistribucionMesa", name:"edit_distribucion", methods:"PUT")]
     
-    public function edit(Request $request,DistribucionesRepository $repo,EntityManagerInterface $em): Response
-    {
-        $datos=json_decode($request->getContent());
-        $distribucion=$repo->find($datos->disposiciones->id);
-        
- 
-        if (!$distribucion) {
-            return $this->json(['message'=>'Distribucion no encontrada','Success'=>false],404);
-        }
-
-        $distribucion->setX($datos->disposiciones->x);
-        $distribucion->setY($datos->disposiciones->y);
-        
-        try{
-            $em->persist($distribucion);
-            $em->flush();
-            return $this->json(['message'=>"Se ha podido modificar la distribucion ",
-                        'Success'=>true],202);
-        }catch(PDOException){
-            return $this->json(['message'=>'No se ha podido modificar la mesa','Success'=>false],404);
-        } 
-    }
 
     #[Route('/getMesasDistribuciones/{id}', name: 'get_mesa_distribuciones',methods:'GET')]
     public function getMesasDist(DistribucionRepository $repo,int $id): JsonResponse
@@ -131,4 +111,53 @@ class ApiDistribucionController extends AbstractController
         return $this->json(['distribuciones'=>$datos,'Success'=>true],201);
     }
 
+
+    #[Route("/postDistribucionMesa", name:"edit_distribucion", methods:"POST")]
+    
+    public function createDistribucionMesa(Request $request,DistribucionesRepository $repo,EntityManagerInterface $em,MesaRepository $repoMesa,DistribucionRepository $repoDist): Response
+    {
+        $datos=json_decode($request->getContent());
+        $distMesa=new Distribuciones();
+        $mesa=$repoMesa->find($datos->disposiciones->mesa);
+        $distribucion=$repoDist->find($datos->disposiciones->distribucion);
+
+        $distMesa->setMesa($mesa);
+        $distMesa->setDistribucion($distribucion);
+        $distMesa->setX($datos->disposiciones->x);
+        $distMesa->setY($datos->disposiciones->y);
+        
+        try{
+            $em->persist($distMesa);
+            $em->flush();
+            return $this->json(['message'=>"Se ha podido crear la distribucion ",
+                        'Success'=>true],202);
+        }catch(PDOException){
+            return $this->json(['message'=>'No se ha podido crear la distribucion','Success'=>false],404);
+        } 
+    }
+
+    #[Route("/putDistribucionMesa", name:"edit_distribucion", methods:"PUT")]
+    
+    public function edit(Request $request,DistribucionesRepository $repo,EntityManagerInterface $em): Response
+    {
+        $datos=json_decode($request->getContent());
+        $distribucion=$repo->find($datos->disposiciones->id);
+        
+ 
+        if (!$distribucion) {
+            return $this->json(['message'=>'Distribucion no encontrada','Success'=>false],404);
+        }
+
+        $distribucion->setX($datos->disposiciones->x);
+        $distribucion->setY($datos->disposiciones->y);
+        
+        try{
+            $em->persist($distribucion);
+            $em->flush();
+            return $this->json(['message'=>"Se ha podido modificar la distribucion ",
+                        'Success'=>true],202);
+        }catch(PDOException){
+            return $this->json(['message'=>'No se ha podido modificar la mesa','Success'=>false],404);
+        } 
+    }
 }

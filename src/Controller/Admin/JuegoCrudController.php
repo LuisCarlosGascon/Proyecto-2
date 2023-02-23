@@ -20,13 +20,17 @@ class JuegoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('nombre'),
             TextField::new('descripcion'),
             IntegerField::new('min_jugadores'),
             IntegerField::new('max_jugadores'),
             IntegerField::new('alto'),
             IntegerField::new('ancho'),
-            ImageField::new('imagen')->setBasePath('public/img')->setUploadDir('public/img'),
+            ImageField::new('imagen')
+                ->setBasePath('public/img')
+                ->setUploadDir('public/img')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
         ];
     }
     

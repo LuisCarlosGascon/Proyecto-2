@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear un juego{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+<div class="c-tabla">
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Jugadores Mínimos</th>
+            <th>Jugadores Máximos</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos">{{form_widget(form.nombre)}}</td>
+            <td class="tr-juegos">{{form_widget(form.descripcion)}}</td>
+            <td class="tr-juegos">{{form_widget(form.min_jugadores)}}</td>
+            <td class="tr-juegos">{{form_widget(form.max_jugadores)}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="mt-4">
+    <thead>
+        <tr>
+            <th>Alto</th>
+            <th>Ancho</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos">{{form_widget(form.alto)}}</td>
+            <td class="tr-juegos">{{form_widget(form.ancho)}}</td>
+            <td class="tr-juegos">{{form_widget(form.imagen)}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{ form_widget(form.submit, { 'label': 'Crear Juego','attr':{'class':'btn btn-lg btn-primary mt-4'}}) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}

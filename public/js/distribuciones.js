@@ -27,7 +27,8 @@ $(function(){
             });
             lista.forEach(mesa =>{
                 $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.id+"/"+selectDis.val(),function(distIds){
-                    if(distIds["distribuciones"].length!=0){
+
+                    if(distIds["distribuciones"][0].x!=0){
                         var coordenadas=distIds["distribuciones"][0];
                         mesa.x=coordenadas.x;
                         mesa.y=coordenadas.y;
@@ -35,6 +36,7 @@ $(function(){
                         mesa.x=null;
                         mesa.y=null;
                     }
+
                     mesa.drag();
                     mesa.pinta(sala,trastero,difX,difY);
                 })

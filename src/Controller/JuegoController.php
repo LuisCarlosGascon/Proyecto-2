@@ -72,6 +72,48 @@ class JuegoController extends AbstractController
         ]);
     }
 
+    #[Route('/juegoCrear', name: 'app_juego_crear')]
+    public function creaJuego(JuegoRepository $repo,Request $request,SluggerInterface $slugger,EntityManagerInterface $em): Response
+    {
+        $juegoNuevo=new Juego();
+
+        $form=$this->createForm(JuegoType::class,$juegoNuevo);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            
+            $juego = $form->getData();
+
+            $file=$form->get('imagen')->getData();
+
+            if($file){
+                $nombreOriginal=pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $salvaFile=$slugger->slug($nombreOriginal);
+                $nuevoFile=$salvaFile.'-'.uniqid().'.'.$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('brochures_directory'),
+                        $nuevoFile
+                    );
+                } catch (FileException $e) {
+                }
+
+                $juego->setImagen($nuevoFile);
+
+            }
+
+            $em->persist($juego);
+            $em->flush();
+
+            return $this->redirectToRoute('app_juegos');
+        }
+
+        return $this->render('juego/crear.html.twig', [
+            'form' =>$form,
+        ]);
+    }
+
     #[Route('/juegosMantenimiento', name: 'app_juegos_mantenimientos')]
     public function mantenimiento(JuegoRepository $repo): Response
     {
@@ -90,6 +132,16 @@ class JuegoController extends AbstractController
         $em->flush();
         return $this->redirect('/juegosMantenimiento');
     }
+
+    #[Route('/juegosDetalles', name: 'app_juegos_detalles')]
+    public function detalles(JuegoRepository $repo): Response
+    {
+        $juego=$repo->find(2);
+        return $this->render('juego/detalle.html.twig',[
+            "juego"=>$juego,
+        ]);
+    }
+
 
     
 }

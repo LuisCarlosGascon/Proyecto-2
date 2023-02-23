@@ -25,7 +25,7 @@ class JuegoType extends AbstractType
                 'mapped' => false,
                 'required'=>false,
             ])
-            ->add('editar',SubmitType::class)
+            ->add('submit',SubmitType::class)
         ;
     }
 

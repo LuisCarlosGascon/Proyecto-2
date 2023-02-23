@@ -166,4 +166,9 @@ class Mesa
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->alto." x ".$this->ancho; 
+    }
 }

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 class EventoCrudController extends AbstractCrudController
 {
@@ -22,11 +23,15 @@ class EventoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('nombre'),
             DateField::new('fecha'),
+            AssociationField::new('tramo'),
             IntegerField::new('num_asistentes_max'),
-            ImageField::new('imagen')->setBasePath('public/img')->setUploadDir('public/img'),
+            ImageField::new('imagen')
+                ->setBasePath('public/img')
+                ->setUploadDir('public/img')
+                ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
 
         ];
     }

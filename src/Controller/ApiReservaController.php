@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Distribucion;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,6 +11,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Reserva;
+use App\Repository\TramoRepository;
+use App\Repository\DistribucionRepository;
+use DateTime;
 use PDOException;
 
 
@@ -116,7 +120,7 @@ class ApiReservaController extends AbstractController
     {
  
         $reserva = new Reserva();
-        $reserva->setFecha($request->request->get('fecha'));
+        $reserva->setFecha(new DateTime($request->request->get('fecha')));
         $reserva->setAsiste(true);
         $reserva->setFCancelacion($request->request->get('FCancelacion'));
         $reserva->setMesa($request->request->get('mesa'));
@@ -126,5 +130,39 @@ class ApiReservaController extends AbstractController
         $em->flush();
  
         return $this->json(['message'=>'Reserva creada correctamente con el id ' . $reserva->getId(),'Success'=>true], 202);
+    }
+
+    #[Route('/getTramos', name: 'get_tramos',methods:'GET')]
+    public function tramos(ReservaRepository $repo,TramoRepository $repoT): JsonResponse
+    {
+        
+        $tramos=$repoT->findAll();
+
+        $datos=[];
+        foreach($tramos as $tramo){
+            $datos[]=[
+                'id'=>$tramo->getId(),
+                'hora_inicio'=>$tramo->getHora(),
+                'hora_fin'=>$tramo->getHoraFin(),
+            ];
+        }
+
+        return $this->json(['tramos'=>$datos,'Success'=>true],201);
+    }
+
+    #[Route('/getDistribucionReserva/{fecha}', name: 'get_distribucion_reserva',methods:'GET')]
+    public function find(DistribucionRepository $repo,string $fecha): JsonResponse
+    {
+        $fecha2=new DateTime($fecha);
+        $distribucion=$repo->findBy(array('fecha'=>$fecha2));
+
+        if(!$distribucion){
+            return $this->json(['id'=>null,'Success'=>true],202);
+        }
+        
+        $dato=[
+            "id"=>$distribucion[0]->getId(),
+        ];
+        return $this->json(['id'=>$dato,'Success'=>true],201);
     }
 }

@@ -34,6 +34,10 @@ class Evento
     #[ORM\Column(length: 255)]
     private ?string $imagen = null;
 
+    #[ORM\ManyToOne(inversedBy: 'evento')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tramo $tramo = null;
+
     public function __construct()
     {
         $this->invitacion = new ArrayCollection();
@@ -149,6 +153,18 @@ class Evento
     public function setImagen(string $imagen): self
     {
         $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    public function getTramo(): ?Tramo
+    {
+        return $this->tramo;
+    }
+
+    public function setTramo(?Tramo $tramo): self
+    {
+        $this->tramo = $tramo;
 
         return $this;
     }

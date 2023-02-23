@@ -19,6 +19,7 @@
 .nav-img-perfil {
   width: 50px;
   height: 50px;
+  border-radius: 30px;
 }
 
 #nav-img-padding {
@@ -102,30 +103,69 @@ body {
     opacity: 0.8;
   }
 }
+.modalJuegos {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 20px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
 .modal-contenido-juegos {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%;
+  width: 90%;
   height: 70%;
+  margin: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 40%;
 }
 
-.registro {
+.modal-juegos__imagen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+}
+
+.c-juegoDetalles__imagen {
+  width: 300px;
+  height: 300px;
+}
+
+.c-registro {
   margin-top: 10%;
-  background-color: #3b82f6;
+  background: rgb(158, 24, 24);
+  background: radial-gradient(circle, rgb(158, 24, 24) 0%, rgb(120, 28, 124) 100%);
   border-radius: 10px;
 }
 
-.form-titulo {
+.c-form-registro__titulo {
   text-align: center;
+  color: white;
 }
 
-.form-registro-row {
+.c-form-registro__row {
   display: grid;
   grid-template-rows: 1fr 8fr 1fr;
 }
 
-.form-registro-col {
+.c-form-registro__col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10%;
@@ -133,7 +173,7 @@ body {
   padding: 2%;
 }
 
-.form-registro-btn {
+.c-form-registro__btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -143,8 +183,8 @@ body {
   width: 100%;
 }
 
-.input-text-register {
-  width: 40%;
+.form-registro__label {
+  color: white;
 }
 
 .c-tabla {
@@ -186,4 +226,82 @@ thead {
 .clicable {
   cursor: pointer;
   color: #06A3DA;
+}
+
+.c-edificio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 100px;
+}
+
+.c-sala {
+  width: 1000px;
+  height: 600px;
+  border: 1px solid black;
+  background-color: rgb(233, 147, 86);
+}
+
+.c-trastero {
+  width: 200px;
+  height: 400px;
+  border: 1px solid gray;
+  background-color: gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+}
+
+.mesa {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border-color: black;
+}
+
+.c-reserva {
+  background-color: rgba(228, 228, 228, 0.715);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  padding: 30px 10px 0px 10px;
+}
+
+.ui-datepicker {
+  background-color: white;
+}
+
+.c-juegos-reserva {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 200px;
+  gap: 20px;
+}
+
+.c-disposiciones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  padding: 10px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }

@@ -16,6 +16,48 @@ $("document").ready(function () {
           mesa.attr('style','width=50px;height=50px;');
           $(this).append(mesa);
 
+          if(selectDis.val()!=null){
+            $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.attr("id")+"/"+selectDis.val(),function(final){
+              console.log(final.distribuciones[0]["id"])
+            
+        
+            if(final.distribuciones.length>0){
+              var distribuciones={
+                "disposiciones":{
+                  "id":final.distribuciones[0]["id"],
+                  "x":null,
+                  "y":null
+                }
+              }
+  
+              $.ajax({
+                type:"PUT",
+                url:"http://localhost:8000/api/putDistribucionMesa",
+                data:JSON.stringify(distribuciones),
+                dataType:"JSON"
+              });
+            }else{
+              var distribuciones={
+                "disposiciones":{
+                  "mesa":mesa.attr("id"),
+                  "distribucion":selectDis.val(),
+                  "x":null,
+                  "y":null
+                }
+              }
+  
+              $.ajax({
+                type:"POST",
+                url:"http://localhost:8000/api/postDistribucionMesa",
+                data:JSON.stringify(distribuciones),
+                dataType:"JSON"
+              }); 
+            }
+            // console.log(final.distribuciones[0]["id"]);
+            
+          });
+        }else{
+
           $.getJSON("http://localhost:8000/api/getMesa/"+mesa.attr("id"),function(final){
           //Hago un formato JSON con las nuevas coordenadas de las mesas
           var mesaFinal={
@@ -31,7 +73,7 @@ $("document").ready(function () {
           //Llamo a la API que edita la mesa
           cambiaPosicion(mesaFinal);
         });
-      }
+      }}
   })
 
   $("#sala").droppable({
@@ -72,27 +114,50 @@ $("document").ready(function () {
 
       //Mover la mesa si no ha chocado con ninguna otra
       if(esMovible){
+        mesa.css({width:mesa.attr("ancho")+"px",height:mesa.attr("alto")+"px"});
         $(this).append(mesa);
         mesa.css({ position: 'absolute', top: top + "px", left: left + "px" });
         //obtengo los datos de la mesa movida desde la base de datos
        
         if(selectDis.val()!=null){
           $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.attr("id")+"/"+selectDis.val(),function(final){
-            console.log(final.distribuciones[0]["id"]);
-            var distribuciones={
-              "disposiciones":{
-                "id":final.distribuciones[0]["id"],
-                "x":left-difX,
-                "y":top-difY
+     
+          console.log(left)
+        
+            if(final.distribuciones.length>0){
+              var distribuciones={
+                "disposiciones":{
+                  "id":final.distribuciones[0]["id"],
+                  "x":left-difX,
+                  "y":top-difY
+                }
               }
+  
+              $.ajax({
+                type:"PUT",
+                url:"http://localhost:8000/api/putDistribucionMesa",
+                data:JSON.stringify(distribuciones),
+                dataType:"JSON"
+              });
+            }else{
+              var distribuciones={
+                "disposiciones":{
+                  "mesa":mesa.attr("id"),
+                  "distribucion":selectDis.val(),
+                  "x":left-difX,
+                  "y":top-difY
+                }
+              }
+  
+              $.ajax({
+                type:"POST",
+                url:"http://localhost:8000/api/postDistribucionMesa",
+                data:JSON.stringify(distribuciones),
+                dataType:"JSON"
+              }); 
             }
-            console.log(JSON.stringify(distribuciones))
-            $.ajax({
-              type:"PUT",
-              url:"http://localhost:8000/api/putDistribucionMesa",
-              data:JSON.stringify(distribuciones),
-              dataType:"JSON"
-            });
+            // console.log(final.distribuciones[0]["id"]);
+            
           });
         }else{
           $.getJSON("http://localhost:8000/api/getMesa/"+mesa.attr("id"),function(final){

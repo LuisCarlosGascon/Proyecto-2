@@ -61,7 +61,7 @@ class Distribuciones
         return $this->x;
     }
 
-    public function setX(float $x): self
+    public function setX(?float $x): self
     {
         $this->x = $x;
 
@@ -73,7 +73,7 @@ class Distribuciones
         return $this->y;
     }
 
-    public function setY(float $y): self
+    public function setY(?float $y): self
     {
         $this->y = $y;
 

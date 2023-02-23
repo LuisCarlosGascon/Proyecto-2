@@ -170,4 +170,9 @@ class Juego
     public function acortaDescripcion(){
         return substr($this->descripcion,0,60)."...";
     }
+
+    public function __toString()
+    {
+        return $this->nombre;
+    }
 }

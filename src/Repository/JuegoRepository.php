@@ -39,6 +39,17 @@ class JuegoRepository extends ServiceEntityRepository
         }
     }
 
+    public function getJuegoRandom(){
+
+        $max=count($this->findAll());
+        $id=rand(1,$max);
+       
+        $qb=$this->createQueryBuilder('j')
+            ->where('j.id=:id')->setParameter('id',$id);
+        return $qb->getQuery()->execute();
+
+    }
+
 //    /**
 //     * @return Juego[] Returns an array of Juego objects
 //     */

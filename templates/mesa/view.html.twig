@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {# <p>Hola</p>
-    <h1>Que tal</h1> #}
+<script src="{{ asset('js/Mesa.js')}}"></script>
+<script src="{{ asset('js/sala.js')}}"></script>
+<script src="{{ asset('js/distribuciones.js')}}"></script>
    
-    <div id="edificio">
-        <div id="distribuciones">
+    <div id="edificio" class="c-edificio">
+        <div class="c-disposiciones">
             Disposición de la sala: 
             <select id="selectDis">
                 <option selected disabled="true" id="default">Seleccione una fecha</option>
             </select>
             <button id="base" class="btn btn-primary">Base</button>
         </div>
-        <div id="sala">  
+        <div id="sala" class="c-sala">  
         
         </div>
-        <div id="trastero">
+        <div id="trastero" class="c-trastero">
         
         </div>
     </div>

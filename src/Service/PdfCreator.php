@@ -18,11 +18,10 @@ class PdfCreator
 
     public function generatePdf($html){
         $this->dompdf->loadHtml($html);
-        //$this->dompdf->setPaper('A4','portrait');
 
         $this->dompdf->render();
         return $this->dompdf->stream("pdf.pdf", [
-            "Attachment" => true
+            "Attachment" => false
         ]);
     }
 

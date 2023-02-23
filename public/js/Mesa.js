@@ -6,7 +6,7 @@ class Mesa{
         this.sillas=sillas;
         this.x=x;
         this.y=y;
-        this.representacion=$("<div>").attr("id",this.id).css({width:this.ancho,height:this.alto,"background-color":"black"}).addClass("mesa");
+        this.representacion=$("<div>").attr({"id":this.id,"alto":this.alto,"ancho":this.ancho}).css({width:this.ancho,height:this.alto,"background-color":"black"}).addClass("mesa");
     }
     
     
@@ -20,9 +20,11 @@ class Mesa{
             },
             revert:true,
             revertDuration:0,
-            helper:'clone',
+            helper:function(){
+                return $(this).clone().css({width:$(this).attr("ancho")+"px",height:$(this).attr("alto")+"px"})
+            },
             accept: '#trastero, #sala',
-          });
+        });
     }
 
     pinta(sala,trastero,difX,difY){

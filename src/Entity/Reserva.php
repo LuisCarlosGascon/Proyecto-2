@@ -31,6 +31,10 @@ class Reserva
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reserva')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Tramo $tramo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,16 +100,29 @@ class Reserva
         return $this;
     }
 
-    public function __toString(){
-        return $this->fecha;
-    }
-
     public function getFechaString(){
         return $this->fecha->format('Y-m-d H:i:s');
     }
 
     public function getFechaC_String(){    
         return $this->f_cancelacion->format('Y-m-d H:i:s');
+    }
+
+    public function __toString()
+    {
+        return $this->user." ".$this->fecha;
+    }
+
+    public function getTramo(): ?Tramo
+    {
+        return $this->tramo;
+    }
+
+    public function setTramo(?Tramo $tramo): self
+    {
+        $this->tramo = $tramo;
+
+        return $this;
     }
 
 }

@@ -1,32 +1,38 @@
-.registro{
+.c-registro{
     margin-top: 10%;
-    background-color: #3b82f6;
+    background: rgb(158,24,24);
+    background: radial-gradient(circle, rgba(158,24,24,1) 0%, rgba(120,28,124,1) 100%);
     border-radius: 10px;
     
 }
 
-.form-titulo{
+.c-form-registro__titulo{
     text-align: center;
+    color:white;
 }
 
-.form-registro-row{
+.c-form-registro__row{
     display:grid;
     grid-template-rows: 1fr 8fr 1fr;
 }
 
-.form-registro-col{
+.c-form-registro__col{
     display:grid;
     grid-template-columns: 1fr 1fr;
     gap:10%;
     padding-bottom: 2%;
     padding: 2%;
 }
-.form-registro-btn{
+.c-form-registro__btn{
     display:flex;
     justify-content: center;
     width: 100%;
 }
 
-.input-text-register{
-    width: 40%;
+// .input-text-register{
+//     width: 40%;
+// }
+
+.form-registro__label{
+    color:white;
 }
