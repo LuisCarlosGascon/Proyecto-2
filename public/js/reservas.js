@@ -128,7 +128,6 @@ $(function(){
               "tramo":tramo.val()
             }
           }
-          console.log(JSON.stringify(reserva))
         $.ajax({
             type:"POST",
             url:"http://localhost:8000/api/postReserva",

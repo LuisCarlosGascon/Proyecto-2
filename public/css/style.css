@@ -315,6 +315,7 @@ h6,
     height: 300px;
     padding: 0 30px;
     transition: .5s;
+    background-color: white;
 }
 
 .service-item .service-icon {

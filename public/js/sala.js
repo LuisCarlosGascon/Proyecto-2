@@ -4,6 +4,41 @@ $("document").ready(function () {
   var selectDis=$("#selectDis");
   var difX=sala.offset().left;
   var difY=sala.offset().top;
+
+  var alto=$("#alto");
+  var ancho=$("#ancho")
+  var sillas=$("#sillas")
+  var btnCrear=$("#crear");
+
+
+  btnCrear.click(function(){
+    if(alto.val()!=null && ancho.val()!=null && sillas.val()!=null){
+      var mesa={
+        "mesa":{
+          "alto":alto.val(),
+          "ancho":ancho.val(),
+          "sillas":sillas.val()
+        }
+      }
+
+      $.ajax({
+        type:"POST",
+        url:"http://localhost:8000/api/postMesa",
+        data:JSON.stringify(mesa),
+        dataType:"JSON",
+        success:function(json){
+          debugger
+          console.log(json["id"])
+          var mesaCreada=new Mesa(json.id,json.alto,json.ancho,json.sillas,null,null);
+      
+          mesaCreada.drag();
+          mesaCreada.pinta(sala,trastero,difX,difY);
+        }
+      }); 
+    }
+  })
+
+  
   
   
   colocaBase(sala,trastero,difX,difY);

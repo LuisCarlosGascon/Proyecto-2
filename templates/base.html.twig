@@ -102,6 +102,7 @@
                     <a href="{{path('app_juegos')}}" class="nav-item nav-link">Juegos</a>
                     <a href="{{path('reservar')}}" class="nav-item nav-link">Reservar</a>
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{path('app_register')}}" class="nav-item nav-link">Registrarme</a>
                         <button id="login" class="nav-item nav-link iniciar">Iniciar Sesión</button>   
                     {% else %}
                     <div class="nav-item dropdown">

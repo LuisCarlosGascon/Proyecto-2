@@ -20,7 +20,7 @@
             <td class="tr-juegos">{{reserva.fecha|date('Y-m-d')}}</td>
             <td class="tr-juegos">{% if reserva.asiste is null %}Por comprobar{% else %}
             {% if reserva.asiste %}Sí{% else %}No{% endif %}{% endif %}</td>
-            <td class="tr-juegos">{% if reserva.FCancelacion is null %}{{reserva.FCancelacion|date('Y-m-d')}}{% endif %}</td> 
+            <td class="tr-juegos">{% if reserva.FCancelacion is not null %}{{reserva.FCancelacion|date('Y-m-d')}}{% else %}No cancelado{% endif %}</td> 
             <td class="tr-juegos">{{reserva.tramo}}</td>
             <td class="tr-juegos"><a href="{{url('reserva_eliminar',{'id':reserva.id})}}">&#10006</a></td>
         </tr>

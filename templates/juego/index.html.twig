@@ -8,7 +8,7 @@
             <div class="row g-5">
             {% for juego in juegos %}
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                    <div class="service-item rounded d-flex flex-column align-items-center justify-content-center text-center">
                         <img src="{{asset('img/' ~ juego.imagen)}}" class="service-icon">
                         <h4 class="mb-3">{{juego.nombre}}</h4>
                         <p class="m-0">{{juego.descripcion}}</p>

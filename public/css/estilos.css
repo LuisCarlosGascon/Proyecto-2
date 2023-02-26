@@ -12,6 +12,11 @@
   border: transparent;
 }
 
+#registrarme {
+  background-color: transparent;
+  border: transparent;
+}
+
 .espaciado {
   width: 50px;
 }
@@ -285,6 +290,8 @@ thead {
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .mesa {
@@ -311,6 +318,15 @@ thead {
   background-color: white;
 }
 
+.c-opciones {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 200px;
+}
+
 .c-juegos-reserva {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -319,6 +335,26 @@ thead {
       flex-wrap: wrap;
   width: 200px;
   gap: 20px;
+}
+
+.c-crea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  padding: 10px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.c-crea__input {
+  width: 95%;
 }
 
 .c-disposiciones {

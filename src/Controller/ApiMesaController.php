@@ -113,16 +113,18 @@ class ApiMesaController extends AbstractController
     public function new(Request $request,EntityManagerInterface $em): Response
     {
  
+        $datos=json_decode($request->getContent());
+
         $mesa = new Mesa();
-        $mesa->setAlto($request->request->get('alto'));
-        $mesa->setAncho($request->request->get('ancho'));
-        $mesa->setSillas($request->request->get('sillas'));
-        $mesa->setX($request->request->get('x'));
-        $mesa->setY($request->request->get('y'));
+        $mesa->setAlto($datos->mesa->alto);
+        $mesa->setAncho($datos->mesa->ancho);
+        $mesa->setSillas($datos->mesa->sillas);
+        $mesa->setX(null);
+        $mesa->setY(null);
  
         $em->persist($mesa);
         $em->flush();
  
-        return $this->json(['message'=>'Mesa creada correctamente con el id ' . $mesa->getId(),'Success'=>true], 202);
+        return $this->json(['id'=>$mesa->getId(),'alto'=>$mesa->getAlto(),'ancho'=>$mesa->getAncho(),'Success'=>true], 202);
     }
 }

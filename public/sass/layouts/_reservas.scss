@@ -2,9 +2,28 @@
     background-color: white;
 }
 
+.c-opciones{
+    display:flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
 .c-juegos-reserva{
     display:flex;
     flex-wrap: wrap;
     width: 200px;
     gap:20px;
+}
+
+.c-crea{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    background-color: white;
+    padding: 10px;
+    height: fit-content;
+}
+
+.c-crea__input{
+    width: 95%;
 }
