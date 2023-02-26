@@ -39,9 +39,13 @@ class Juego
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagen = null;
 
+    #[ORM\OneToMany(mappedBy: 'juego', targetEntity: Reserva::class)]
+    private Collection $reserva;
+
     public function __construct()
     {
         $this->presentacion = new ArrayCollection();
+        $this->reserva = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -174,5 +178,35 @@ class Juego
     public function __toString()
     {
         return $this->nombre;
+    }
+
+    /**
+     * @return Collection<int, Reserva>
+     */
+    public function getReserva(): Collection
+    {
+        return $this->reserva;
+    }
+
+    public function addReserva(Reserva $reserva): self
+    {
+        if (!$this->reserva->contains($reserva)) {
+            $this->reserva->add($reserva);
+            $reserva->setJuego($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReserva(Reserva $reserva): self
+    {
+        if ($this->reserva->removeElement($reserva)) {
+            // set the owning side to null (unless already changed)
+            if ($reserva->getJuego() === $this) {
+                $reserva->setJuego(null);
+            }
+        }
+
+        return $this;
     }
 }

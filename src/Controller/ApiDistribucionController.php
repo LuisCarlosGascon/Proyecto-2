@@ -112,7 +112,7 @@ class ApiDistribucionController extends AbstractController
     }
 
 
-    #[Route("/postDistribucionMesa", name:"edit_distribucion", methods:"POST")]
+    #[Route("/postDistribucionMesa", name:"post_distribucion", methods:"POST")]
     
     public function createDistribucionMesa(Request $request,DistribucionesRepository $repo,EntityManagerInterface $em,MesaRepository $repoMesa,DistribucionRepository $repoDist): Response
     {

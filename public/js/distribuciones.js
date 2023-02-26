@@ -27,16 +27,35 @@ $(function(){
             });
             lista.forEach(mesa =>{
                 $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.id+"/"+selectDis.val(),function(distIds){
+                    if(distIds["distribuciones"][0]===undefined){
+                        var distribuciones={
+                            "disposiciones":{
+                              "mesa":mesa.id,
+                              "distribucion":selectDis.val(),
+                              "x":0,
+                              "y":0
+                            }
+                          }
 
-                    if(distIds["distribuciones"][0].x!=0){
-                        var coordenadas=distIds["distribuciones"][0];
-                        mesa.x=coordenadas.x;
-                        mesa.y=coordenadas.y;
+                          mesa.x=null;
+                          mesa.y=null;
+
+                          $.ajax({
+                            type:"POST",
+                            url:"http://localhost:8000/api/postDistribucionMesa",
+                            data:JSON.stringify(distribuciones),
+                            dataType:"JSON"
+                          }); 
                     }else{
-                        mesa.x=null;
-                        mesa.y=null;
+                        if(distIds["distribuciones"][0].x!=0){
+                            var coordenadas=distIds["distribuciones"][0];
+                            mesa.x=coordenadas.x;
+                            mesa.y=coordenadas.y;
+                        }else{
+                            mesa.x=null;
+                            mesa.y=null;
+                        }
                     }
-
                     mesa.drag();
                     mesa.pinta(sala,trastero,difX,difY);
                 })

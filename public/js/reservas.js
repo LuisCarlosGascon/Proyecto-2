@@ -2,7 +2,7 @@ $(function(){
     var juegos=$("#juegosReserva");
     var fecha=$("#fecha");
     var tramo=$("#tramo");
-    var mesas=$("#mesas");
+    var mesaJuego=null;
     var jugadores=$("#jugadores");
     var base=$("#base");
     var btn=$("#btn");
@@ -33,10 +33,8 @@ $(function(){
         $.getJSON("http://localhost:8000/api/getJuegos",function(data){
             var nJugadores=jugadores.val();
             data["juegos"].forEach(juego=>{
-                console.log(juego["min_jugadores"])
                 if(juego["min_jugadores"]<=nJugadores && juego["max_jugadores"]>=nJugadores){
-                    console.log(juego)
-                    var divJuego=$("<div>").attr({'alto':juego["alto"],'ancho':juego["ancho"],"minJ":juego["min_jugadores"],"maxJ":juego["max_jugadores"]}).css({'width':'50px','height':'50px'}).addClass("img-drag").append($("<img>").attr({'src':'../img/'+juego["imagen"],'width':'100%','height':'100%'}));
+                    var divJuego=$("<div>").attr({'id':juego["id"],'alto':juego["alto"],'ancho':juego["ancho"],"minJ":juego["min_jugadores"],"maxJ":juego["max_jugadores"]}).css({'width':'50px','height':'50px'}).addClass("img-drag").append($("<img>").attr({'src':'../img/'+juego["imagen"],'width':'100%','height':'100%'}));
                     juegos.append(divJuego);
                     divJuego.draggable({
                         revert:true,
@@ -104,7 +102,7 @@ $(function(){
                                 if(distIds["distribuciones"][0].x!=0){
                                     var coordenadas=distIds["distribuciones"][0];
                                     mesa.x=coordenadas.x;
-                                 mesa.y=coordenadas.y;
+                                    mesa.y=coordenadas.y;
                                 }else{
                                     mesa.x=null;
                                     mesa.y=null;
@@ -112,6 +110,7 @@ $(function(){
 
                                 //mesa.drag();
                                  mesa.pinta(sala,trastero,difX,difY);
+
                             })
                         })   
                     })
@@ -119,12 +118,29 @@ $(function(){
             })
         }
     })
+
+    btn.click(function(){
+        var reserva={
+            "reserva":{
+              "fecha":fecha.val(),
+              "mesa":$("#sala .mesa .img-drag").parent().attr("id"),
+              "juego":$("#sala .mesa .img-drag").attr("id"),
+              "tramo":tramo.val()
+            }
+          }
+          console.log(JSON.stringify(reserva))
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8000/api/postReserva",
+            data:JSON.stringify(reserva),
+            dataType:"JSON"
+          });
+    })
 })
 
 function colocaBaseUser(sala,trastero,difX,difY){
     sala.empty();
     trastero.empty();
-    
     $.getJSON("http://localhost:8000/api/getMesas",function(data){
       data.mesas.forEach(element => {
         var mesa=new Mesa(element.id,element.alto,element.ancho,element.sillas,element.x,element.y);
@@ -133,6 +149,7 @@ function colocaBaseUser(sala,trastero,difX,difY){
         mesa.pinta(sala,trastero,difX,difY);
 
         $("#sala .mesa").droppable({
+            
             drop: function (ev, ui) {
               let juego = ui.draggable;
             
@@ -150,6 +167,8 @@ function colocaBaseUser(sala,trastero,difX,difY){
             
           });
       });
+
+      return 
     });
 }
 
@@ -161,7 +180,6 @@ function rellenaJugadores(min,max,select){
 
 function compruebaJuegoMesa(juego,mesa,jugadores){
     var resultado;
-    debugger
     if(parseInt(juego.attr("alto"))<=parseInt(mesa.attr("alto")) && parseInt(juego.attr("ancho"))<=parseInt(mesa.attr("ancho")) && parseInt(jugadores)<=parseInt(mesa.attr("sillas"))){
         resultado=true;
     }else{

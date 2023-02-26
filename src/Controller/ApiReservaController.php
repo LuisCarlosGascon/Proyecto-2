@@ -12,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Reserva;
 use App\Repository\TramoRepository;
+use App\Repository\MesaRepository;
+use App\Repository\JuegoRepository;
 use App\Repository\DistribucionRepository;
 use DateTime;
 use PDOException;
@@ -116,15 +118,19 @@ class ApiReservaController extends AbstractController
     
     #[Route("/postReserva", name:"post_reserva", methods:"POST")]
     
-    public function new(Request $request,EntityManagerInterface $em): Response
+    public function new(Request $request,EntityManagerInterface $em,MesaRepository $repoM,JuegoRepository $repoJ,TramoRepository $repoT): Response
     {
+        $datos=json_decode($request->getContent());
  
         $reserva = new Reserva();
-        $reserva->setFecha(new DateTime($request->request->get('fecha')));
-        $reserva->setAsiste(true);
-        $reserva->setFCancelacion($request->request->get('FCancelacion'));
-        $reserva->setMesa($request->request->get('mesa'));
-        $reserva->setUser($request->request->get('user'));
+        $reserva->setFecha(new DateTime($datos->reserva->fecha));
+        
+        $reserva->setTramo($repoT->find($datos->reserva->tramo));
+        $reserva->setAsiste(null);
+        $reserva->setFCancelacion(null);
+        $reserva->setMesa($repoM->find($datos->reserva->mesa));
+        $reserva->setUser($this->getUser());
+        $reserva->setJuego($repoJ->find($datos->reserva->juego));
  
         $em->persist($reserva);
         $em->flush();

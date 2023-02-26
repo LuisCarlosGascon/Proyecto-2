@@ -5,13 +5,13 @@
 {% block body %}
 {{ form_start(form) }}
 <div class="c-tabla">
-<table>
-    <thead>
+<table id="tabla-juegos" class="table c-tabla-item">
+    <thead class="c-thead">
         <tr>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Jugadores Mínimos</th>
-            <th>Jugadores Máximos</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Jugadores Mínimos</th>
+            <th scope="col">Jugadores Máximos</th>
             
         </tr>
     </thead>
@@ -25,12 +25,12 @@
     </tbody>
 </table>
 
-<table class="mt-4">
-    <thead>
+<table id="tabla-juegos" class="table mt-4">
+    <thead class="c-thead">
         <tr>
-            <th>Alto</th>
-            <th>Ancho</th>
-            <th>Imagen</th>
+            <th scope="col">Alto</th>
+            <th scope="col">Ancho</th>
+            <th scope="col">Imagen</th>
         </tr>
     </thead>
     <tbody>

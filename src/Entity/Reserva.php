@@ -35,6 +35,10 @@ class Reserva
     #[ORM\JoinColumn(nullable: false)]
     private ?Tramo $tramo = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reserva')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Juego $juego = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +125,18 @@ class Reserva
     public function setTramo(?Tramo $tramo): self
     {
         $this->tramo = $tramo;
+
+        return $this;
+    }
+
+    public function getJuego(): ?Juego
+    {
+        return $this->juego;
+    }
+
+    public function setJuego(?Juego $juego): self
+    {
+        $this->juego = $juego;
 
         return $this;
     }
