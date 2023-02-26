@@ -8,16 +8,20 @@
             Fecha de la reserva
             <input type="text" id="fecha" autocomplete="off" readonly>
             <button id="base" class="btn btn-primary">Hoy</button>
+            Número de jugadores
+            <select id="jugadores">
+                <option selected disabled>Seleccione una opción</option>
+            </select>
             Juegos
             <div id="juegosReserva" class="c-juegos-reserva"></div>
             Hora
-            <select id="tramo"></select>
+            <select id="tramo">
+                <option selected disabled>Seleccione una opción</option>
+            </select>
             {# <select id="mesas"></select> #}
-            Número de jugadores
-            <input type="number" id="jugadores">
+            
             <input type="submit" class="btn btn-primary" id="btn">
         </div>
         <div id="sala" class="c-sala"></div>
-        
-    </div>
+</div>
 {% endblock %}

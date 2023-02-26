@@ -18,9 +18,15 @@ class PrincipalController extends AbstractController
     {
         $eventos=$repoEvento->findAll();
         $juego=$repoJuego->getJuegoRandom();
+        $evento=$eventos[0];
+        $eventosFinal=[];
+        for($i=1;$i<count($eventos);$i++){
+            array_push($eventosFinal,$eventos[$i]);
+        }
         
         return $this->render('principal/index.html.twig',[
-            'eventos'=>$eventos,
+            'evento1'=>$evento,
+            'eventos'=>$eventosFinal,
             'juego'=>$juego,
         ]);
     }

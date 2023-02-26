@@ -6,10 +6,9 @@ class Mesa{
         this.sillas=sillas;
         this.x=x;
         this.y=y;
-        this.representacion=$("<div>").attr({"id":this.id,"alto":this.alto,"ancho":this.ancho}).css({width:this.ancho,height:this.alto,"background-color":"black"}).addClass("mesa");
+        this.representacion=$("<div>").attr({"id":this.id,"alto":this.alto,"ancho":this.ancho,"sillas":this.sillas}).css({width:this.ancho,height:this.alto,"background-color":"black"}).addClass("mesa");
+        
     }
-    
-    
 
     drag(){
         $(this.representacion).draggable({

@@ -28,8 +28,8 @@ class UserCrudController extends AbstractCrudController
             TextField::new('ape2'),
             ChoiceField::new('roles')
                 ->setChoices([
-                    'SUPER-ADMIN' => 'ROLE_SUPER_ADMIN',
-                    'ADMIN' => 'ROLE-ADMIN',
+                    'SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
+                    'ADMIN' => 'ROLE_ADMIN',
                     'USER' => 'ROLE_USER',
                 ])
                 ->allowMultipleChoices(),

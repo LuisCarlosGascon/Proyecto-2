@@ -30,4 +30,9 @@ class ReservaCrudController extends AbstractCrudController
         yield AssociationField::new('mesa');
     }
     
+    public function createEntity(string $entityFqcn) {
+        $entity = new Reserva();
+        $entity->setAsiste(null);
+        return $entity;
+    }
 }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="c-tabla">
+<table class="c-tabla-item">
+    <thead class="c-thead">
+        <tr>
+            <th>Fecha</th>
+            <th>Asiste</th>
+            <th>Fecha de cancelación</th>
+            <th>Tramo</th>
+            <th>⚙</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for reserva in reservas %}
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos"></td>
+            <td class="tr-juegos"></td>
+            <td class="tr-juegos"></td> 
+            <td class="tr-juegos"></td>
+            <td class="tr-juegos"><a href="{{url('reserva_eliminar',{'id':reserva.id})}}">&#10006</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
