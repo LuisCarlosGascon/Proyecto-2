@@ -2,7 +2,6 @@ $(function(){
     var juegos=$("#juegosReserva");
     var fecha=$("#fecha");
     var tramo=$("#tramo");
-    var mesaJuego=null;
     var jugadores=$("#jugadores");
     var base=$("#base");
     var btn=$("#btn");

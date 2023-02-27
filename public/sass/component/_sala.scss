@@ -9,6 +9,10 @@
     height: 600px; 
     border:1px solid black; 
     background-color: rgb(233, 147, 86);
+    
+    background-image: url('../img/fondoSala.jpg');
+    background-repeat: repeat;
+    background-size: contain;
 }
 
 .c-trastero{
@@ -19,6 +23,9 @@
     display:flex;
     gap:20px;
     flex-wrap: wrap;
+    background-image: url('../img/fondoTrastero.jpg');
+    background-repeat: repeat;
+    background-size: contain;
 }
 
 .mesa{

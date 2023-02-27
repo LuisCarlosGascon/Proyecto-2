@@ -100,17 +100,17 @@
                 {% endif %} 
                     <a href="" class="nav-item nav-link">Eventos</a>
                     <a href="{{path('app_juegos')}}" class="nav-item nav-link">Juegos</a>
-                    <a href="{{path('reservar')}}" class="nav-item nav-link">Reservar</a>
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a href="{{path('app_register')}}" class="nav-item nav-link">Registrarme</a>
                         <button id="login" class="nav-item nav-link iniciar">Iniciar Sesión</button>   
                     {% else %}
+                    <a href="{{path('reservar')}}" class="nav-item nav-link">Reservar</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="nav-img-padding">
                             {% if app.user.imagen %}
-                            <img src="{{asset('img/' ~ app.user.imagen)}}" class="nav-img-perfil">
+                                <img src="{{asset('img/' ~ app.user.imagen)}}" class="nav-img-perfil">
                             {% else %}
-                            <img src="{{asset('img/iconoBlanco.png')}}" class="nav-img-perfil">
+                                <img src="{{asset('img/iconoBlanco.png')}}" class="nav-img-perfil">
                             {% endif %}
                         </a>
                         <div class="dropdown-menu m-0">
