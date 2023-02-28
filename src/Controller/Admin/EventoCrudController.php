@@ -27,6 +27,7 @@ class EventoCrudController extends AbstractCrudController
             TextField::new('nombre'),
             DateField::new('fecha'),
             AssociationField::new('tramo'),
+            AssociationField::new('presentacion'),
             IntegerField::new('num_asistentes_max'),
             ImageField::new('imagen')
                 ->setBasePath('public/img')

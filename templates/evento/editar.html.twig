@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar un juego{% endblock %}
+
+{% block body %}
+<script src="{{ asset('js/evento.js')}}"></script>
+
+<div class="c-tabla">
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Aforo máximo</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="c-juegos-datos">
+            <td class="tr-juegos"><input type="text" id="nombre" value={{evento.nombre}}></td>
+            <td class="tr-juegos"><input type="text" id="evento_fecha" value={{fecha}}></td>
+            <td class="tr-juegos"><select id="tramo">{% for tramo in tramos %}<option value={{tramo.id}}>{{tramo}}</option>{% endfor %}</select></td>
+            <td class="tr-juegos"><input type="text" id="asistentes" value={{evento.NumAsistentesMax}}></td>
+            <td class="tr-juegos"><input type="file" id="imagen"></td>
+        </tr>
+    </tbody>
+</table>
+
+<button id="btn-evento" class="btn btn-primary mt-5">Editar evento</button>
+</div>
+{% endblock %}

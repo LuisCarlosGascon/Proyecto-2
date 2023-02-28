@@ -168,4 +168,8 @@ class Evento
 
         return $this;
     }
+
+    public function fechaString(){
+        return date_format($this->fecha,'Y-m-d');
+    }
 }

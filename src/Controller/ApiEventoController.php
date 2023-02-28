@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventoRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Evento;
+use PDOException;
 
 #[Route("/api", name:"api_")]
 class ApiEventoController extends AbstractController
@@ -19,106 +24,108 @@ class ApiEventoController extends AbstractController
         $datos=[];
 
         foreach($eventos as $evento){
+            $fecha=date_format($evento->getFecha(),'Y-m-d');
             $datos[]=[
-                'id'=>$eventos->getId(),
-                'alto'=>$eventos->getAlto(),
-                'ancho'=>$eventos->getAncho(),
-                'sillas'=>$eventos->getSillas(),
-                'x'=>$mesa->getX(),
-                'y'=>$mesa->getY(),
+                'id'=>$evento->getId(),
+                'nombre'=>$evento->getNombre(),
+                'fecha'=>$fecha,
+                'num_asistentes_max'=>$evento->getNumAsistentesMax(),
+                'imagen'=>$evento->getImagen(),
             ];
         }
 
-        return $this->json(['mesas'=>$datos,'Success'=>true],201);
+        return $this->json(['eventos'=>$datos,'Success'=>true],201);
     }
 
-    #[Route('/getEvento/{id}', name: 'get_mesa',methods:'GET')]
+    #[Route('/getEvento/{id}', name: 'get_evento',methods:'GET')]
     public function find(EventoRepository $repo,int $id): JsonResponse
     {
-        $mesa=$repo->find($id);
+        $evento=$repo->find($id);
     
 
-        if(!$mesa){
-            return $this->json(['message'=>'Mesa no encontrada con el id ' . $id,'Success'=>false],404);
+        if(!$evento){
+            return $this->json(['message'=>'Evento no encontrado con el id ' . $id,'Success'=>false],404);
         }
         
-        $dato=[
-            "id"=>$mesa->getId(),
-            "alto"=>$mesa->getAlto(),
-            "ancho"=>$mesa->getAncho(),
-            "sillas"=>$mesa->getSillas(),
-            "x"=>$mesa->getX(),
-            "y"=>$mesa->getY(),
+        $fecha=date_format($evento->getFecha(),'Y-m-d');
+        $dato[]=[
+            'id'=>$evento->getId(),
+            'nombre'=>$evento->getNombre(),
+            'fecha'=>$fecha,
+            'num_asistentes_max'=>$evento->getNumAsistentesMax(),
+            'imagen'=>$evento->getImagen(),
         ];
         
 
         
 
-        return $this->json(['mesa'=>$dato,'Success'=>true],201);
+        return $this->json(['evento'=>$dato,'Success'=>true],201);
     }
 
-    #[Route("/deleteMesa/{id}", name:"delete_mesa", methods:"DELETE")]
+    #[Route("/deleteEvento/{id}", name:"delete_evento", methods:"DELETE")]
      
     public function delete(int $id,EntityManagerInterface $em): Response
     {
         
-        $mesa = $em->getRepository(Mesa::class)->find($id);
+        $evento = $em->getRepository(Evento::class)->find($id);
  
-        if (!$mesa) {
+        if (!$evento) {
             return $this->json(['message'=>'Mesa no encontrada con el id: ' . $id,'Success'=>false], 404);
         }
  
-        $em->remove($mesa);
+        $em->remove($evento);
         $em->flush();
  
-        return $this->json(['message'=>'Mesa eliminada con exito con id: ' . $id,'Success'=>true], 202);
+        return $this->json(['message'=>'Evento eliminado con exito con id: ' . $id,'Success'=>true], 202);
     }
 
     
-    #[Route("/putMesa", name:"edit_mesa", methods:"PUT")]
+    #[Route("/putEvento", name:"edit_evento", methods:"PUT")]
     
-    public function edit(Request $request,MesaRepository $repo,EntityManagerInterface $em): Response
+    public function edit(Request $request,EventoRepository $repo,EntityManagerInterface $em): Response
     {
         $datos=json_decode($request->getContent());
-        $mesa=$repo->find($datos->mesa->id);
+        $evento=$repo->find($datos->evento->id);
         
  
-        if (!$mesa) {
-            return $this->json(['message'=>'Mesa no encontrada','Success'=>false],404);
+        if (!$evento) {
+            return $this->json(['message'=>'Evento no encontrado','Success'=>false],404);
         }
  
-        $mesa->setAlto($datos->mesa->alto);
-        $mesa->setAncho($datos->mesa->ancho);
-        $mesa->setSillas($datos->mesa->sillas);
-        $mesa->setX($datos->mesa->x);
-        $mesa->setY($datos->mesa->y);
+        $evento->setNombre($datos->evento->nombre);
+        $evento->setFecha($datos->evento->fecha);
+        $evento->setNumAsistentesMax($datos->evento->num_asistentes_max);
+        $evento->setTramo($datos->evento->tramo);
+        $evento->setImagen($datos->evento->imagen);
         
         try{
-            $em->persist($mesa);
+            $em->persist($evento);
             $em->flush();
-            return $this->json(['message'=>"Se ha podido modificar la mesa ",
+            return $this->json(['message'=>"Se ha podido modificar el evento ",
                         'Success'=>true],202);
         }catch(PDOException){
-            return $this->json(['message'=>'No se ha podido modificar la mesa','Success'=>false],404);
+            return $this->json(['message'=>'No se ha podido modificar el evento','Success'=>false],404);
         }
     }
 
     
-    #[Route("/postMesa", name:"post_mesa", methods:"POST")]
+    #[Route("/postEvento", name:"post_evento", methods:"POST")]
     
     public function new(Request $request,EntityManagerInterface $em): Response
     {
  
-        $mesa = new Mesa();
-        $mesa->setAlto($request->request->get('alto'));
-        $mesa->setAncho($request->request->get('ancho'));
-        $mesa->setSillas($request->request->get('sillas'));
-        $mesa->setX($request->request->get('x'));
-        $mesa->setY($request->request->get('y'));
+        $datos=json_decode($request->getContent());
+
+        $evento = new Evento();
+        $evento->setNombre($datos->evento->nombre);
+        $evento->setFecha($datos->evento->fecha);
+        $evento->setNumAsistentesMax($datos->evento->num_asistentes_max);
+        $evento->setTramo($datos->evento->tramo);
+        $evento->setImagen($datos->evento->imagen);
  
-        $em->persist($mesa);
+        $em->persist($evento);
         $em->flush();
  
-        return $this->json(['message'=>'Mesa creada correctamente con el id ' . $mesa->getId(),'Success'=>true], 202);
+        return $this->json(['message'=>'Evento creado correctamente con el id ' . $evento->getId(),'Success'=>true], 202);
     }
 }

@@ -6,6 +6,9 @@ $(function(){
     var base=$("#base");
     var btn=$("#btn");
     var btnAtras=$("#btn-atras");
+    var alert1=$("#alert1");
+    var alert4=$("#alert4");
+    var cerrar=$(".c-closebtn")
 
     var sala=$("#sala");
     var trastero=$("#trastero");
@@ -30,6 +33,10 @@ $(function(){
 
     })
    
+    cerrar.click(function(){
+       var div=$(this).parent();
+       div.css({"display":"none"});
+    })
     colocaBaseUser(sala,trastero,difX,difY);
     rellenaJugadores(2,10,$("#jugadores"))
     var a=new Date();
@@ -162,12 +169,12 @@ $(function(){
           }
         $.ajax({
             type:"POST",
-            url:"http://localhost:8000/api/postReserva",
+            url:"http://localhost:8000/api/putReserva",
             data:JSON.stringify(reserva),
             dataType:"JSON",
             success:function(json){
                 if(json["Success"]==false){
-                    alert("El tramo del día que has elegido ya está reservado, seleccione un tramo diferente");
+                    alert1.css({"display":"block"});
                 }else{
                     btn.prop("disabled",true);
                     fecha.prop("disabled",false);
@@ -178,9 +185,12 @@ $(function(){
                     $("#tramo option:eq(0)").prop("selected",true);
                     juegos.empty();
                     $("#sala .mesa .img-drag").parent().empty();
+                    $(".c-alert").css({"display":"none"});
+                    alert4.css({"display":"block"});
+
                 }
             }
-          });
+        });
     })
 })
 
@@ -226,6 +236,14 @@ function rellenaJugadores(min,max,select){
 
 function compruebaJuegoMesa(juego,mesa,jugadores){
     var resultado;
+    if(!(parseInt(juego.attr("alto"))<=parseInt(mesa.attr("alto"))) || !(parseInt(juego.attr("ancho"))<=parseInt(mesa.attr("ancho")))){
+        $("#alert2").css({"display":"block"});
+    }else if(!(parseInt(jugadores)<=parseInt(mesa.attr("sillas")))){
+        $("#alert3").css({"display":"block"});
+    }
+
+
+
     if(parseInt(juego.attr("alto"))<=parseInt(mesa.attr("alto")) && parseInt(juego.attr("ancho"))<=parseInt(mesa.attr("ancho")) && parseInt(jugadores)<=parseInt(mesa.attr("sillas"))){
         resultado=true;
     }else{
@@ -233,4 +251,3 @@ function compruebaJuegoMesa(juego,mesa,jugadores){
     }
     return resultado;
 }
-

@@ -277,6 +277,10 @@ thead {
   color: #06A3DA;
 }
 
+.adios {
+  display: none;
+}
+
 .c-edificio {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -333,6 +337,45 @@ thead {
   padding: 30px 10px 0px 10px;
 }
 
+.c-alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  -webkit-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.c-alert.success {
+  background-color: #04AA6D;
+}
+
+.c-alert.info {
+  background-color: #2196F3;
+}
+
+.c-alert.warning {
+  background-color: #ff9800;
+}
+
+.c-closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.c-closebtn:hover {
+  color: black;
+}
+
 .ui-datepicker {
   background-color: white;
 }
@@ -354,6 +397,8 @@ thead {
       flex-wrap: wrap;
   width: 200px;
   gap: 20px;
+  overflow: scroll;
+  height: 70px;
 }
 
 .c-crea {
