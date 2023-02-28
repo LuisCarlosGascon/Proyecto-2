@@ -7,6 +7,7 @@ $(function(){
 
         var datatable=lista.DataTable({
             data:datos,
+            responsive:true,
             columns:[
                 {data:'user'},
                 {data:'fecha'},
@@ -53,8 +54,8 @@ $(function(){
                 <p>Juego: `+data["juego"]+`</p>
                 <p>Fecha cancelacion: `+data["f_cancelacion"]+`</p>
                 <p>Asiste: `+val+`</p>
-                <button id="btn-si">Asiste</button>
-                <button id="btn-no">No asiste</button>
+                <button id="btn-si" class="btn btn-success">Asiste</button>
+                <button id="btn-no" class="btn btn-danger">No asiste</button>
                 `
                 
             modal.dialog().append(html);

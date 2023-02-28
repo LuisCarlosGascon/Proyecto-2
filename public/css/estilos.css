@@ -159,6 +159,12 @@ body {
   border-radius: 10px;
 }
 
+.ui-dialog-titlebar-close {
+  background-color: rgb(170, 170, 170);
+  border-color: transparent;
+  border-radius: 10px;
+}
+
 .c-registro {
   margin-top: 10%;
   background: rgb(158, 24, 24);
@@ -198,30 +204,30 @@ body {
   color: white;
 }
 
-.c-tabla {
+.c-tablaJ {
   margin-top: 150px;
   margin-left: 15%;
 }
 
 @media (max-width: 768px) {
-  .c-tabla {
+  .c-tablaJ {
     margin-top: 150px;
-    margin-left: 5%;
+    margin-left: 9%;
     font-size: 8px;
   }
-  .c-tabla__descripcion {
+  .c-tablaJ__descripcion {
     display: none;
   }
   th, td {
     padding: 0px;
   }
-  #c-tabla__img {
+  #c-tablaJ__img {
     width: 20px;
     height: 20px;
   }
 }
-@media (max-width: 340px) {
-  .c-tabla {
+@media (max-width: 372px) {
+  .c-tablaJ {
     margin-left: 1%;
   }
 }
@@ -229,7 +235,7 @@ body {
   width: 80%;
 }
 
-.c-tabla__img {
+.c-tablaJ__img {
   width: 50px;
   height: 50px;
 }
@@ -259,13 +265,29 @@ thead {
   color: black;
 }
 
-.c-datatable {
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 100px;
+.c-tablaRM {
+  width: 80%;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.c-tabla__datos:nth-child(even) {
+  background-color: #8b5cf6;
+  color: black;
+}
+
+.c-tabla__datos:nth-child(odd) {
+  background-color: #c4b5fd;
+  color: black;
+}
+
+@media (max-width: 550px) {
+  .c-tablaRM {
+    font-size: 10px;
+    margin-top: 80px;
+  }
+}
 .btn-vacio {
   background-color: transparent;
   border: transparent;
@@ -376,6 +398,19 @@ thead {
   color: black;
 }
 
+.c-datatable {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 108px;
+}
+
+@media (max-width: 768px) {
+  .c-datatable {
+    margin-top: 65px;
+    font-size: 12px;
+  }
+}
 .ui-datepicker {
   background-color: white;
 }

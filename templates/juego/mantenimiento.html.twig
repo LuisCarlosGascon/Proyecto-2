@@ -4,12 +4,12 @@
 
 {% block body %}
 
-<div class="c-tabla">
-<table id="tabla-juegos" class="table c-tabla-item">
+<div class="c-tablaJ">
+<table id="tabla-juegos" class="table">
     <thead class="c-thead">
         <tr>
             <th scope="col">Nombre</th>
-            <th scope="col" class="c-tabla__descripcion">Descripcion</th>
+            <th scope="col" class="c-tablaJ__descripcion">Descripcion</th>
             <th scope="col">Jugadores Mínimos</th>
             <th scope="col">Jugadores Máximos</th>
             <th scope="col">Dimensiones</th>
@@ -21,11 +21,11 @@
     {% for juego in juegos %}
         <tr class="c-juegos-datos">
             <td class="tr-juegos" scope="row">{{juego.nombre}}</td>
-            <td class="tr-juegos c-tabla__descripcion">{{juego.acortaDescripcion}}</td>
+            <td class="tr-juegos c-tablaJ__descripcion">{{juego.acortaDescripcion}}</td>
             <td class="tr-juegos">{{juego.MinJugadores}}</td>
             <td class="tr-juegos">{{juego.MaxJugadores}}</td>
             <td class="tr-juegos">{{juego.Dimensiones}}</td>
-            <td class="tr-juegos"><img src="{{asset('img/' ~ juego.imagen)}}" id="c-tabla__img" class="c-tabla__img"></td>
+            <td class="tr-juegos"><img src="{{asset('img/' ~ juego.imagen)}}" id="c-tablaJ__img" class="c-tablaJ__img"></td>
             <td class="tr-juegos"><a href="{{url('app_juego_editar',{'id':juego.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':juego.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}

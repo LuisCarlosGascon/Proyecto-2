@@ -1,0 +1,13 @@
+.c-datatable{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 108px;
+}
+
+@media (max-width: 768px) {
+    .c-datatable{
+        margin-top: 65px;
+        font-size: 12px;
+    }
+}

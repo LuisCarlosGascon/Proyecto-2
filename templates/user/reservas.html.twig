@@ -3,26 +3,26 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<div class="c-tabla">
-<table class="c-tabla-item">
+<div class="c-tablaRM">
+<table class="table">
     <thead class="c-thead">
         <tr>
-            <th>Fecha</th>
-            <th>Asiste</th>
-            <th>Fecha de cancelación</th>
-            <th>Tramo</th>
-            <th>⚙</th>
+            <th class="c-tablaRM__th">Fecha</th>
+            <th class="c-tablaRM__th">Asiste</th>
+            <th class="c-tablaRM__th">Fecha de cancelación</th>
+            <th class="c-tablaRM__th">Tramo</th>
+            <th class="c-tablaRM__th">⚙</th>
         </tr>
     </thead>
     <tbody>
     {% for reserva in reservas %}
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos">{{reserva.fecha|date('Y-m-d')}}</td>
-            <td class="tr-juegos">{% if reserva.asiste is null %}Por comprobar{% else %}
+        <tr class="c-tabla__datos">
+            <td class="c-tablaRM__tr">{{reserva.fecha|date('Y-m-d')}}</td>
+            <td class="c-tablaRM__tr">{% if reserva.asiste is null %}Por comprobar{% else %}
             {% if reserva.asiste %}Sí{% else %}No{% endif %}{% endif %}</td>
-            <td class="tr-juegos">{% if reserva.FCancelacion is not null %}{{reserva.FCancelacion|date('Y-m-d')}}{% else %}No cancelado{% endif %}</td> 
-            <td class="tr-juegos">{{reserva.tramo}}</td>
-            <td class="tr-juegos"><a href="{{url('reserva_cancelar',{'id':reserva.id})}}">&#10006</a></td>
+            <td class="c-tablaRM__tr">{% if reserva.FCancelacion is not null %}{{reserva.FCancelacion|date('Y-m-d')}}{% else %}No cancelado{% endif %}</td> 
+            <td class="c-tablaRM__tr">{{reserva.tramo}}</td>
+            <td class="c-tablaRM__tr"><a href="{{url('reserva_cancelar',{'id':reserva.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}
     </tbody>
