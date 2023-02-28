@@ -22,8 +22,8 @@ use PDOException;
 #[Route("/api", name:"api_")]
 class ApiReservaController extends AbstractController
 {
-    #[Route('/getReservas/{id}', name: 'get_reservas',methods:'GET')]
-    public function findAll(ReservaRepository $repo,int $id): JsonResponse
+    #[Route('/getReservas/{id}', name: 'get_reservas_user',methods:'GET')]
+    public function findAllUser(ReservaRepository $repo,int $id): JsonResponse
     {
 
         
@@ -38,6 +38,42 @@ class ApiReservaController extends AbstractController
                 'f_cancelacion'=>$reserva->getFCancelacion(),
                 'mesa'=>$reserva->getMesa(),
                 'user'=>$reserva->getUser(),
+            ];
+        }
+
+        return $this->json(['reservas'=>$datos,'Success'=>true],201);
+    }
+
+    #[Route('/getReservas', name: 'get_reservas',methods:'GET')]
+    public function findAll(ReservaRepository $repo): JsonResponse
+    {
+        $reservas=$repo->findAll();
+
+        $datos=[];
+        foreach($reservas as $reserva){
+            $fecha=date_format($reserva->getFecha(),'Y-m-d');
+            if($reserva->getFCancelacion()!=null){
+                $fechaC=date_format($reserva->getFCancelacion(),'Y-m-d');
+            }else{
+                $fechaC=null;
+            }
+
+            if($reserva->isAsiste()===null){
+                $asiste="Esperando...";
+            }else if($reserva->isAsiste()){
+                $asiste="Sí";
+            }else{
+                $asiste="No";
+            }
+            
+            $datos[]=[
+                'id'=>$reserva->getId(),
+                'fecha'=>$fecha,
+                'asiste'=>$asiste,
+                'f_cancelacion'=>$fechaC,
+                'mesa'=>$reserva->getMesa()->__toString(),
+                'user'=>$reserva->getUser()->__toString(),
+                'juego'=>$reserva->getJuego()->__toString(),
             ];
         }
 
@@ -87,23 +123,19 @@ class ApiReservaController extends AbstractController
     // }
 
     
-    #[Route("/putReserva", name:"edit_reserva", methods:"PUT")]
+    #[Route("/putAsisteReserva/{id}", name:"edit_reserva_asiste", methods:"PUT")]
     
-    public function edit(Request $request,ReservaRepository $repo,EntityManagerInterface $em): Response
+    public function editAsiste(Request $request,ReservaRepository $repo,EntityManagerInterface $em,int $id): Response
     {
         $datos=json_decode($request->getContent());
-        $reserva=$repo->find($datos->reserva->id);
+        $reserva=$repo->find($id);
         
  
         if (!$reserva) {
             return $this->json(['message'=>'Reserva no encontrada','Success'=>false],404);
         }
  
-        $reserva->setFecha($datos->reserva->fecha);
         $reserva->setAsiste($datos->reserva->asiste);
-        $reserva->setFCancelacion($datos->reserva->f_cancelacion);
-        $reserva->setMesa($datos->reserva->mesa);
-        $reserva->setUser($datos->reserva->user);
         
         try{
             $em->persist($reserva);
@@ -118,9 +150,13 @@ class ApiReservaController extends AbstractController
     
     #[Route("/postReserva", name:"post_reserva", methods:"POST")]
     
-    public function new(Request $request,EntityManagerInterface $em,MesaRepository $repoM,JuegoRepository $repoJ,TramoRepository $repoT): Response
+    public function new(Request $request,EntityManagerInterface $em,MesaRepository $repoM,JuegoRepository $repoJ,TramoRepository $repoT,ReservaRepository $repoR): Response
     {
         $datos=json_decode($request->getContent());
+
+        if($repoR->findby(array('fecha'=>new Datetime($datos->reserva->fecha))) && $repoR->findBy(array('tramo'=>$datos->reserva->tramo))){
+            return $this->json(['message'=>'No se ha podido crear la reserva','Success'=>false], 202);
+        }
  
         $reserva = new Reserva();
         $reserva->setFecha(new DateTime($datos->reserva->fecha));

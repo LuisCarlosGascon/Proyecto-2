@@ -5,6 +5,7 @@ $(function(){
     var jugadores=$("#jugadores");
     var base=$("#base");
     var btn=$("#btn");
+    var btnAtras=$("#btn-atras");
 
     var sala=$("#sala");
     var trastero=$("#trastero");
@@ -13,6 +14,20 @@ $(function(){
 
     base.click(function(){
         colocaBaseUser(sala,trastero,difX,difY);
+        fecha.val(a.getFullYear()+"-"+(a.getMonth()+1)+"-"+a.getDate());
+    })
+
+    btnAtras.click(function(){
+        btn.prop("disabled",true);
+        fecha.prop("disabled",false);
+        base.prop("disabled",false);
+        jugadores.prop("disabled",false);
+        tramo.prop("disabled",true);
+        $("#jugadores option:eq(0)").prop("selected",true);
+        $("#tramo option:eq(0)").prop("selected",true);
+        juegos.empty();
+        $("#sala .mesa .img-drag").parent().empty();
+
     })
    
     colocaBaseUser(sala,trastero,difX,difY);
@@ -108,7 +123,25 @@ $(function(){
                                 }
 
                                 //mesa.drag();
-                                 mesa.pinta(sala,trastero,difX,difY);
+                                mesa.pinta(sala,trastero,difX,difY);
+                                $("#sala .mesa").droppable({
+            
+                                    drop: function (ev, ui) {
+                                    let juego = ui.draggable;
+                                
+                                    if(compruebaJuegoMesa(juego,$(this),$("#jugadores").val())){
+                                        $("#tramo").prop("disabled",false);
+                                        $("#jugadores").prop("disabled",true);
+                    
+                                        juego.css({width:$(this).attr("ancho"),height:$(this).attr("alto")}).appendTo($(this));
+                                        $("#juegosReserva").empty();
+                                        $("#fecha").prop("disabled",true);
+                                        $("#base").prop("disabled",true);
+                                  }
+                                  
+                                  },
+                                
+                              });
 
                             })
                         })   
@@ -131,7 +164,22 @@ $(function(){
             type:"POST",
             url:"http://localhost:8000/api/postReserva",
             data:JSON.stringify(reserva),
-            dataType:"JSON"
+            dataType:"JSON",
+            success:function(json){
+                if(json["Success"]==false){
+                    alert("El tramo del día que has elegido ya está reservado, seleccione un tramo diferente");
+                }else{
+                    btn.prop("disabled",true);
+                    fecha.prop("disabled",false);
+                    base.prop("disabled",false);
+                    jugadores.prop("disabled",false);
+                    tramo.prop("disabled",true);
+                    $("#jugadores option:eq(0)").prop("selected",true);
+                    $("#tramo option:eq(0)").prop("selected",true);
+                    juegos.empty();
+                    $("#sala .mesa .img-drag").parent().empty();
+                }
+            }
           });
     })
 })

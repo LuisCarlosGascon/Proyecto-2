@@ -9,6 +9,8 @@ $(function(){
     var distribucionNueva=$("#distribucionNueva");
     var btnDist=$("#crearDist");
 
+    distribucionNueva.css({"cursor":"pointer"});
+
     btnDist.prop("disabled",true);
     //Pinta todas las distribuciones en el SELECT
     $.getJSON("http://localhost:8000/api/getDistribuciones",function(data){
@@ -16,7 +18,6 @@ $(function(){
         $.each(opciones,function(i,v){
             $("<option>").text(v["fecha"]["date"].substr(0,10)).val(v["id"]).appendTo(selectDis);
             opcionesSelect.push(v["fecha"]["date"].substr(0,10))
-            
         })
     })
 
@@ -71,7 +72,7 @@ $(function(){
 
     base.click(function(){
         colocaBase(sala,trastero,difX,difY);
-        document.getElementById("default").selected="true";
+        $("#selectDis option:eq(0)").prop("selected",true);
     })
 
     
@@ -98,49 +99,49 @@ $(function(){
             ((mes<10)?"0"+mes:mes)+"-"+((dia<10)?"0"+dia:dia)
 
             opcionesSelect.forEach(element=>{
-                if(fecha.getDay()%6==0 || festivos.indexOf(cadenaFecha)>-1 || element==cadenaFecha2){
-                    respuesta=[false,"","cerrado/distribucion ya existente"];
+                if(fecha.getDay()%6==0 || festivos.indexOf(cadenaFecha)>-1){
+                    respuesta=[false,"","cerrado"];
+                }else if(element==cadenaFecha2){
+                    respuesta=[false,"","distribucion ya existente"];
                 }
             })
 
             return respuesta;
         },
         onSelect:function(selectedDate){
-            sala.empty();
-            trastero.empty();
-
-            $.getJSON("http://localhost:8000/api/getDistribucionReserva/"+selectedDate,function(id){
-                if(id["id"]==null){
-                    colocaBase(sala,trastero,difX,difY);
-                }else{
-                    $.getJSON("http://localhost:8000/api/getMesas",function(mesas){
-                        lista=[];
-
-                        mesas.mesas.forEach(element => {
-                            var mesa=new Mesa(element.id,element.alto,element.ancho,element.sillas,element.x,element.y);
-                            lista.push(mesa);
-                        });
-                        lista.forEach(mesa =>{
-                            $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.id+"/"+id["id"].id,function(distIds){
-
-                                if(distIds["distribuciones"][0].x!=0){
-                                    var coordenadas=distIds["distribuciones"][0];
-                                    mesa.x=coordenadas.x;
-                                    mesa.y=coordenadas.y;
-                                }else{
-                                    mesa.x=null;
-                                    mesa.y=null;
-                                }
-
-                                //mesa.drag();
-                                 mesa.pinta(sala,trastero,difX,difY);
-
-                            })
-                        })   
-                    })
-                } 
-            })
+            btnDist.prop("disabled",false);
         }
+    })
+
+    btnDist.click(function(){
+        var distribucion={
+            "distribucion":{
+              "fecha":distribucionNueva.val()
+            }
+        }
+
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:8000/api/postDistribucion",
+            data:JSON.stringify(distribucion),
+            dataType:"JSON",
+            success:function(json){
+                opcionesSelect=[];
+                selectDis.empty();
+                $("<option>").text("Seleccione una fecha").attr({"disabled":true,"selected":true}).appendTo(selectDis);
+                distribucionNueva.val('');
+                btnDist.prop("disabled",true);
+                colocaBase(sala,trastero,difX,difY);
+                
+                $.getJSON("http://localhost:8000/api/getDistribuciones",function(data){
+                    const opciones=data['distribuciones'];
+                    $.each(opciones,function(i,v){
+                        $("<option>").text(v["fecha"]["date"].substr(0,10)).val(v["id"]).appendTo(selectDis);
+                        opcionesSelect.push(v["fecha"]["date"].substr(0,10))
+                    })
+                }) 
+            }
+        });
     })
 
 

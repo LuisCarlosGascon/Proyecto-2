@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use PDOException;
+use DateTime;
 
 
 #[Route("/api", name:"api_")]
@@ -111,8 +112,28 @@ class ApiDistribucionController extends AbstractController
         return $this->json(['distribuciones'=>$datos,'Success'=>true],201);
     }
 
+    #[Route("/postDistribucion", name:"post_distribucion", methods:"POST")]
+    
+    public function createDistribucion(Request $request,DistribucionRepository $repo,EntityManagerInterface $em): Response
+    {
+        $datos=json_decode($request->getContent());
+        $fecha=new DateTime($datos->distribucion->fecha);
+        $dist=new Distribucion();
 
-    #[Route("/postDistribucionMesa", name:"post_distribucion", methods:"POST")]
+        $dist->setFecha($fecha);
+        
+        try{
+            $em->persist($dist);
+            $em->flush();
+            return $this->json(['message'=>"Se ha podido crear la distribucion ",
+                        'Success'=>true],202);
+        }catch(PDOException){
+            return $this->json(['message'=>'No se ha podido crear la distribucion','Success'=>false],404);
+        } 
+    }
+
+
+    #[Route("/postDistribucionMesa", name:"post_distribucion_mesa", methods:"POST")]
     
     public function createDistribucionMesa(Request $request,DistribucionesRepository $repo,EntityManagerInterface $em,MesaRepository $repoMesa,DistribucionRepository $repoDist): Response
     {

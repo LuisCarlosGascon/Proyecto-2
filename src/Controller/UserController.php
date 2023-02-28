@@ -9,6 +9,7 @@ use App\Repository\ReservaRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 
 class UserController extends AbstractController
 {
@@ -23,11 +24,12 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/eliminarMiReserva/{id}', name: 'reserva_eliminar')]
+    #[Route('/cancelarMiReserva/{id}', name: 'reserva_cancelar')]
     public function eliminar(ReservaRepository $repo,EntityManagerInterface $em,int $id): Response
     {
         $reserva=$repo->find($id);
-        $em->remove($reserva);
+        $reserva->setFCancelacion(new DateTime(date('Y-m-d')));
+        $em->persist($reserva);
         $em->flush();
 
         return $this->redirect('/misReservas/'.$this->getUser()->getId());

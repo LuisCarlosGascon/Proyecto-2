@@ -42,4 +42,12 @@ class MesaController extends AbstractController
     {
         return $this->render('sala/reserva.html.twig');
     }
+
+    #[Route("/listaReservas", name:"lista_reservas")]
+    public function listaReservas(Request $request,EntityManagerInterface $em): Response
+    {
+        return $this->render('reservas/reservasAdmin.html.twig');
+    }
+    
+
 }

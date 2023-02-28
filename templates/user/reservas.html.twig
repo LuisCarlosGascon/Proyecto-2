@@ -22,7 +22,7 @@
             {% if reserva.asiste %}Sí{% else %}No{% endif %}{% endif %}</td>
             <td class="tr-juegos">{% if reserva.FCancelacion is not null %}{{reserva.FCancelacion|date('Y-m-d')}}{% else %}No cancelado{% endif %}</td> 
             <td class="tr-juegos">{{reserva.tramo}}</td>
-            <td class="tr-juegos"><a href="{{url('reserva_eliminar',{'id':reserva.id})}}">&#10006</a></td>
+            <td class="tr-juegos"><a href="{{url('reserva_cancelar',{'id':reserva.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}
     </tbody>

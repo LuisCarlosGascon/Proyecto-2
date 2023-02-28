@@ -153,6 +153,12 @@ body {
   height: 300px;
 }
 
+.ui-dialog {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .c-registro {
   margin-top: 10%;
   background: rgb(158, 24, 24);
@@ -251,6 +257,13 @@ thead {
 .c-juegos-datos:nth-child(odd) {
   background-color: #c4b5fd;
   color: black;
+}
+
+.c-datatable {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 100px;
 }
 
 .btn-vacio {
@@ -377,4 +390,5 @@ thead {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  width: 100%;
 }
