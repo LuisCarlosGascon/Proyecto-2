@@ -15,6 +15,7 @@ use App\Repository\TramoRepository;
 use App\Repository\MesaRepository;
 use App\Repository\JuegoRepository;
 use App\Repository\DistribucionRepository;
+use App\Repository\UserRepository;
 use DateTime;
 use PDOException;
 
@@ -125,20 +126,27 @@ class ApiReservaController extends AbstractController
     
     #[Route("/putAsisteReserva/{id}", name:"edit_reserva_asiste", methods:"PUT")]
     
-    public function editAsiste(Request $request,ReservaRepository $repo,EntityManagerInterface $em,int $id): Response
+    public function editAsiste(Request $request,ReservaRepository $repo,EntityManagerInterface $em,int $id,UserRepository $repoU): Response
     {
         $datos=json_decode($request->getContent());
         $reserva=$repo->find($id);
-        
- 
+        $user=$this->getUser();
+
         if (!$reserva) {
             return $this->json(['message'=>'Reserva no encontrada','Success'=>false],404);
         }
  
         $reserva->setAsiste($datos->reserva->asiste);
+        if($datos->reserva->asiste==true){
+            $user->setPuntos(($user->getPuntos())+1);
+        }else{
+            $user->setPuntos(($user->getPuntos())-1);
+        }
         
         try{
             $em->persist($reserva);
+            $em->flush();
+            $em->persist($user);
             $em->flush();
             return $this->json(['message'=>"Se ha podido modificar la reserva ",
                         'Success'=>true],202);

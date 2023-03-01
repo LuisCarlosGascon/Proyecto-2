@@ -108,51 +108,6 @@ body {
     opacity: 0.8;
   }
 }
-.modalJuegos {
-  display: block; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
-  padding-top: 20px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-.modal-contenido-juegos {
-  background-color: #fefefe;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 90%;
-  height: 70%;
-  margin: 100px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  gap: 40%;
-}
-
-.modal-juegos__imagen {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-}
-
-.c-juegoDetalles__imagen {
-  width: 300px;
-  height: 300px;
-}
-
 .ui-dialog {
   background-color: white;
   padding: 20px;
@@ -209,6 +164,10 @@ body {
   margin-left: 15%;
 }
 
+.c-tablaJM__td-imgInput {
+  width: 200px;
+}
+
 @media (max-width: 768px) {
   .c-tablaJ {
     margin-top: 150px;
@@ -224,6 +183,63 @@ body {
   #c-tablaJ__img {
     width: 20px;
     height: 20px;
+  }
+}
+.c-tablaJM {
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.c-tablaJM__td-img {
+  width: 50px;
+  height: 50px;
+}
+
+@media (max-width: 992px) {
+  .c-tablaJM {
+    font-size: 12px;
+  }
+  .c-tablaJM__td-imgInput {
+    width: 120px;
+    font-size: 10px;
+  }
+}
+@media (max-width: 773px) {
+  .c-tablaJM {
+    font-size: 9px;
+  }
+  .c-tablaJM__td-imgInput {
+    width: 80px;
+    font-size: 8px;
+  }
+  .c-tablaJM__td-img {
+    width: 25px;
+    height: 25px;
+  }
+}
+@media (max-width: 580px) {
+  .c-tablaJM {
+    margin-left: 20px;
+  }
+  #c-tablaJM__th {
+    text-align: center;
+    padding: 2px;
+  }
+  .c-tablaJM__td {
+    width: 70px;
+  }
+  #c-tablaJM__th-Img {
+    display: none;
+  }
+  .tr-juegos-Img {
+    display: none;
+  }
+}
+@media (max-width: 387px) {
+  .c-tablaJM__td {
+    width: 50px;
   }
 }
 @media (max-width: 372px) {
@@ -255,12 +271,12 @@ thead {
   color: #06A3DA;
 }
 
-.c-juegos-datos:nth-child(even) {
+.c-tabla-datos:nth-child(even) {
   background-color: #8b5cf6;
   color: black;
 }
 
-.c-juegos-datos:nth-child(odd) {
+.c-tabla-datos:nth-child(odd) {
   background-color: #c4b5fd;
   color: black;
 }
@@ -310,7 +326,7 @@ thead {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 50px;
+  margin-top: 105px;
 }
 
 .c-sala {
@@ -411,6 +427,126 @@ thead {
     font-size: 12px;
   }
 }
+.modalJuegos {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 20px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.c-cartaJuego {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 120px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 10%;
+  font-size: 19px;
+}
+
+.c-cartaJuego__imagen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+}
+
+.c-cartaJuego__imagen-item {
+  width: 300px;
+  height: 300px;
+}
+
+.c-cartaJuego__detalles {
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin-left: 20%;
+}
+
+@media (max-width: 941px) {
+  .c-cartaJuego {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 30px;
+    margin-top: 90px;
+    font-size: 16px;
+  }
+  .c-cartaJuego__imagen {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .c-cartaJuego__imagen-item {
+    width: 150px;
+    height: 150px;
+  }
+  .c-cartaJuego__detalles {
+    -ms-flex-item-align: center;
+        align-self: center;
+    margin-left: 0px;
+  }
+}
+.veloz {
+  -webkit-animation: 1s veloz 1;
+          animation: 1s veloz 1;
+}
+
+@-webkit-keyframes veloz {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-200%) skewX(30deg);
+            transform: translateX(-200%) skewX(30deg);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(20%) skewX(-30deg);
+            transform: translateX(20%) skewX(-30deg);
+  }
+  80% {
+    -webkit-transform: translateX(0%) skewX(15deg);
+            transform: translateX(0%) skewX(15deg);
+  }
+}
+
+@keyframes veloz {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-200%) skewX(30deg);
+            transform: translateX(-200%) skewX(30deg);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateX(20%) skewX(-30deg);
+            transform: translateX(20%) skewX(-30deg);
+  }
+  80% {
+    -webkit-transform: translateX(0%) skewX(15deg);
+            transform: translateX(0%) skewX(15deg);
+  }
+}
 #footer {
   position: fixed;
   left: 0;
@@ -419,7 +555,7 @@ thead {
 }
 
 .c-video {
-  margin-left: 29%;
+  margin-left: 32%;
   margin-bottom: 60px;
 }
 
@@ -428,7 +564,7 @@ thead {
   height: 300px;
 }
 
-.c-audio {
+#audio {
   display: none;
 }
 

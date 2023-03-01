@@ -5,6 +5,10 @@
     margin-left:15%;
 }  
 
+.c-tablaJM__td-imgInput{
+    width: 200px;
+}
+
 @media (max-width: 768px) {
     .c-tablaJ{
         margin-top:150px;
@@ -24,6 +28,72 @@
         width: 20px;
         height: 20px;
     }
+}
+
+.c-tablaJM{
+    margin-top:150px;
+    margin-left:auto;
+    margin-right:auto;
+    width: 80%;
+}  
+
+.c-tablaJM__td-img{
+    width: 50px;
+    height: 50px;
+}
+
+@media (max-width:992px){
+    .c-tablaJM{
+        font-size: 12px;
+    }
+    .c-tablaJM__td-imgInput{
+        width: 120px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width:773px){
+    .c-tablaJM{
+        font-size: 9px;
+    }
+
+    .c-tablaJM__td-imgInput{
+        width: 80px;
+        font-size: 8px;
+    }
+
+    .c-tablaJM__td-img{
+        width: 25px;
+        height: 25px;
+    }
+
+}
+
+@media (max-width:580px){
+    .c-tablaJM{
+        margin-left:20px;
+    }
+    #c-tablaJM__th{
+        text-align: center;
+        padding: 2px;
+    }
+    .c-tablaJM__td{
+        width: 70px;
+    }
+
+    #c-tablaJM__th-Img{
+        display:none
+    }
+    .tr-juegos-Img{
+        display:none;
+    }
+}
+
+@media (max-width:387px){
+    .c-tablaJM__td{
+        width: 50px;
+    }
+
 }
 
 @media (max-width: 372px) {
@@ -56,11 +126,11 @@ thead{
     color:#06A3DA;
 }
 
-.c-juegos-datos:nth-child(even){
+.c-tabla-datos:nth-child(even){
     background-color: #8b5cf6;
     color:black;
 }
-.c-juegos-datos:nth-child(odd){
+.c-tabla-datos:nth-child(odd){
     background-color: #c4b5fd;
     color:black;
 }

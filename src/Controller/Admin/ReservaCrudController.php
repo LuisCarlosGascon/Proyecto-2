@@ -28,6 +28,7 @@ class ReservaCrudController extends AbstractCrudController
         yield BooleanField::new('asiste');
         yield AssociationField::new('user');
         yield AssociationField::new('mesa');
+        yield AssociationField::new('juego');
     }
     
     public function createEntity(string $entityFqcn) {

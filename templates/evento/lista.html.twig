@@ -17,13 +17,13 @@
     </thead>
     <tbody>
     {% for evento in eventos %}
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos" scope="row">{{evento.nombre}}</td>
-            <td class="tr-juegos c-tabla__descripcion">{{evento.fechaString}}</td>
-            <td class="tr-juegos">{{evento.tramo}}</td>
-            <td class="tr-juegos">{{evento.NumAsistentesMax}}</td>
-            <td class="tr-juegos"><img src="{{asset('img/' ~ evento.imagen)}}" id="c-tabla__img" class="c-tabla__img"></td>
-            <td class="tr-juegos"><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':evento.id})}}">&#10006</a></td>
+        <tr class="c-tabla-datos">
+            <td scope="row">{{evento.nombre}}</td>
+            <td class="c-tabla__descripcion">{{evento.fechaString}}</td>
+            <td>{{evento.tramo}}</td>
+            <td>{{evento.NumAsistentesMax}}</td>
+            <td><img src="{{asset('img/' ~ evento.imagen)}}" id="c-tabla__img" class="c-tabla__img"></td>
+            <td><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':evento.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}
     </tbody>

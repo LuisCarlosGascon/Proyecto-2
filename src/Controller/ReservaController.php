@@ -19,6 +19,20 @@ class ReservaController extends AbstractController
     #[Route("/listaReservas", name:"lista_reservas")]
     public function listaReservas(Request $request,EntityManagerInterface $em): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+        
         return $this->render('reserva/reservasAdmin.html.twig');
     }
 }

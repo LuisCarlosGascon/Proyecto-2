@@ -41,6 +41,7 @@ $(function(){
     }
 
     var btnAudio=$("#audioBtn");
+    btnAudio.css({"cursor":"pointer"});
     var audio=document.getElementById("audio");
     btnAudio.click(function(){
       if(!audio.paused){

@@ -75,6 +75,7 @@ class SecurityController extends AbstractController
             $user->setPassword($passwordHasher->hashPassword(
                 $user,
                 $datos->getPassword()));
+            $user->setPuntos(0);
             $em->persist($user);
             $em->flush();
             $mailer->sendEmail($user);

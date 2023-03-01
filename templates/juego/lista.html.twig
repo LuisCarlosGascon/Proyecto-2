@@ -12,7 +12,7 @@
                         <img src="{{asset('img/' ~ juego.imagen)}}" class="service-icon">
                         <h4 class="mb-3">{{juego.nombre}}</h4>
                         <p class="m-0">{{juego.acortaDescripcion}}</p>
-                        <a class="btn btn-lg btn-primary rounded btn-juego" idjuego="{{juego.id}}">
+                        <a class="btn btn-lg btn-primary rounded btn-juego" href="{{url('app_juegos_detalles',{'id':juego.id})}}" idjuego="{{juego.id}}">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>

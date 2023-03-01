@@ -19,14 +19,14 @@
     </thead>
     <tbody>
     {% for juego in juegos %}
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos" scope="row">{{juego.nombre}}</td>
-            <td class="tr-juegos c-tablaJ__descripcion">{{juego.acortaDescripcion}}</td>
-            <td class="tr-juegos">{{juego.MinJugadores}}</td>
-            <td class="tr-juegos">{{juego.MaxJugadores}}</td>
-            <td class="tr-juegos">{{juego.Dimensiones}}</td>
-            <td class="tr-juegos"><img src="{{asset('img/' ~ juego.imagen)}}" id="c-tablaJ__img" class="c-tablaJ__img"></td>
-            <td class="tr-juegos"><a href="{{url('app_juego_editar',{'id':juego.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':juego.id})}}">&#10006</a></td>
+        <tr class="c-tabla-datos">
+            <td scope="row">{{juego.nombre}}</td>
+            <td class="c-tablaJ__descripcion">{{juego.acortaDescripcion}}</td>
+            <td>{{juego.MinJugadores}}</td>
+            <td>{{juego.MaxJugadores}}</td>
+            <td>{{juego.Dimensiones}}</td>
+            <td><img src="{{asset('img/' ~ juego.imagen)}}" id="c-tablaJ__img" class="c-tablaJ__img"></td>
+            <td><a href="{{url('app_juego_editar',{'id':juego.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':juego.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}
     </tbody>

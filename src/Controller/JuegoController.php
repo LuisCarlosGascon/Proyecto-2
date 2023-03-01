@@ -27,6 +27,20 @@ class JuegoController extends AbstractController
     #[Route('/juegoEditar/{id}', name: 'app_juego_editar')]
     public function editaJuego(JuegoRepository $repo,int $id,Request $request,SluggerInterface $slugger,EntityManagerInterface $em): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+
         $juego=$repo->find($id);
         $imagen=$juego->getImagen();
 
@@ -75,6 +89,20 @@ class JuegoController extends AbstractController
     #[Route('/juegoCrear', name: 'app_juego_crear')]
     public function creaJuego(JuegoRepository $repo,Request $request,SluggerInterface $slugger,EntityManagerInterface $em): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+
         $juegoNuevo=new Juego();
 
         $form=$this->createForm(JuegoType::class,$juegoNuevo);
@@ -117,6 +145,20 @@ class JuegoController extends AbstractController
     #[Route('/juegosMantenimiento', name: 'app_juegos_mantenimientos')]
     public function mantenimiento(JuegoRepository $repo): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+
         $juegos=$repo->findAll();
         return $this->render('juego/mantenimiento.html.twig', [
             'juegos' => $juegos,
@@ -126,6 +168,20 @@ class JuegoController extends AbstractController
     #[Route('/juegoEliminar/{id}', name: 'app_juego_eliminar')]
     public function delete(JuegoRepository $repo,int $id,EntityManagerInterface $em): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+        
         $juego=$repo->find($id);
 
         $em->remove($juego);

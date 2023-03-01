@@ -16,6 +16,9 @@ class UserController extends AbstractController
     #[Route('/misReservas/{id}', name: 'app_user_reservas')]
     public function index(ReservaRepository $repo,int $id,UserRepository $repoU): Response
     {
+        if($this->getUser()==null || $this->getUser()->getId()!=$id){
+            return $this->redirectToRoute('index');
+        }
         $user=$repoU->find($id);
         $reservas=$repo->findBy(array("user"=>$user));
 
@@ -27,13 +30,14 @@ class UserController extends AbstractController
     #[Route('/cancelarMiReserva/{id}', name: 'reserva_cancelar')]
     public function eliminar(ReservaRepository $repo,EntityManagerInterface $em,int $id): Response
     {
+        if($this->getUser()==null || $this->getUser()->getId()!=$id){
+            return $this->redirectToRoute('index');
+        }
         $reserva=$repo->find($id);
         $reserva->setFCancelacion(new DateTime(date('Y-m-d')));
         $em->persist($reserva);
         $em->flush();
 
-        return $this->redirect('/misReservas/'.$this->getUser()->getId());
+        return $this->redirect('misReservas/'.$this->getUser()->getId());
     }
-
-    
 }

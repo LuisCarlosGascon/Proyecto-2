@@ -3,47 +3,48 @@
 {% block title %}Crear un juego{% endblock %}
 
 {% block body %}
-{{ form_start(form) }}
-<div class="c-tabla">
-<table id="tabla-juegos" class="table c-tabla-item">
-    <thead class="c-thead">
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Jugadores Mínimos</th>
-            <th scope="col">Jugadores Máximos</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos">{{form_widget(form.nombre)}}</td>
-            <td class="tr-juegos">{{form_widget(form.descripcion)}}</td>
-            <td class="tr-juegos">{{form_widget(form.min_jugadores)}}</td>
-            <td class="tr-juegos">{{form_widget(form.max_jugadores)}}</td>
-        </tr>
-    </tbody>
-</table>
+<section>
+    <div class="c-tablaJM">
+        {{ form_start(form) }}
+        <table id="tabla-juegos" class="table">
+            <thead class="c-thead">
+                <tr>
+                    <th scope="col" id="c-tablaJM__th">Nombre</th>
+                    <th scope="col" id="c-tablaJM__th">Descripcion</th>
+                    <th scope="col" id="c-tablaJM__th">Jugadores Mínimos</th>
+                    <th scope="col" id="c-tablaJM__th">Jugadores Máximos</th>    
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="c-tabla-datos">
+                    <td class="tr-juegos">{{form_widget(form.nombre,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.descripcion,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.min_jugadores,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.max_jugadores,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-<table id="tabla-juegos" class="table mt-4">
-    <thead class="c-thead">
-        <tr>
-            <th scope="col">Alto</th>
-            <th scope="col">Ancho</th>
-            <th scope="col">Imagen</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos">{{form_widget(form.alto)}}</td>
-            <td class="tr-juegos">{{form_widget(form.ancho)}}</td>
-            <td class="tr-juegos">{{form_widget(form.imagen)}}</td>
-        </tr>
-    </tbody>
-</table>
+        <table id="tabla-juegos" class="table mt-4">
+            <thead class="c-thead">
+                <tr>
+                    <th scope="col"  id="c-tablaJM__th">Alto</th>
+                    <th scope="col"  id="c-tablaJM__th">Ancho</th>
+                    <th scope="col"  id="c-tablaJM__th">Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="c-tabla-datos">
+                    <td>{{form_widget(form.alto,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td>{{form_widget(form.ancho,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td>{{form_widget(form.imagen,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-{{ form_widget(form.submit, { 'label': 'Crear Juego','attr':{'class':'btn btn-lg btn-primary mt-4'}}) }}
-</div>
-{{ form_end(form) }}
+        {{ form_widget(form.submit, { 'label': 'Crear Juego','attr':{'class':'btn btn-lg btn-primary mt-4'}}) }}
+        {{ form_end(form) }}
+    </div>
+<section>
 
 {% endblock %}

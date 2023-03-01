@@ -17,12 +17,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="c-juegos-datos">
-            <td class="tr-juegos"><input type="text" id="nombre" value={{evento.nombre}}></td>
-            <td class="tr-juegos"><input type="text" id="evento_fecha" value={{fecha}}></td>
-            <td class="tr-juegos"><select id="tramo">{% for tramo in tramos %}<option value={{tramo.id}}>{{tramo}}</option>{% endfor %}</select></td>
-            <td class="tr-juegos"><input type="text" id="asistentes" value={{evento.NumAsistentesMax}}></td>
-            <td class="tr-juegos"><input type="file" id="imagen"></td>
+        <tr class="c-tabla-datos">
+            <td><input type="text" id="nombre" value={{evento.nombre}}></td>
+            <td><input type="text" id="evento_fecha" value={{fecha}}></td>
+            <td><select id="tramo">{% for tramo in tramos %}<option value={{tramo.id}}>{{tramo}}</option>{% endfor %}</select></td>
+            <td><input type="text" id="asistentes" value={{evento.NumAsistentesMax}}></td>
+            <td><input type="file" id="imagen"></td>
         </tr>
     </tbody>
 </table>

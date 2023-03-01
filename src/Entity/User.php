@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = [];
+    private ?array $roles = [];
 
     /**
      * @var string The hashed password
@@ -52,6 +52,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagen = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $puntos = null;
 
     public function __construct()
     {
@@ -92,13 +95,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
 
@@ -264,5 +267,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->nombre." ".$this->ape1;
+    }
+
+    public function getPuntos(): ?int
+    {
+        return $this->puntos;
+    }
+
+    public function setPuntos(?int $puntos): self
+    {
+        $this->puntos = $puntos;
+
+        return $this;
     }
 }

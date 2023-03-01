@@ -38,6 +38,7 @@
             <!-- Template Stylesheet -->
             <link href='{{asset("css/style.css")}}' rel="stylesheet">
             <link href='{{asset("css/estilos.css")}}' rel="stylesheet">
+            <link rel="icon" href="{{asset('img/logo.png')}}" />
         {% endblock %}
 
         {% block javascripts %}
@@ -58,7 +59,6 @@
             <script src="{{ asset('js/jquery.js')}}"></script>
             <script src="{{ asset('js/jquery-ui.js')}}"></script>
             <script src="{{ asset('js/modal.js')}}"></script>
-            <script src="{{ asset('js/detallesJuegos.js')}}"></script>
         {% endblock %}
         <style>
         
@@ -73,7 +73,7 @@
             <!-- Spinner End -->
 
         <!-- Navbar -->
-            {#<div class="container-fluid position-relative p-0"> #}
+    <header>    {#<div class="container-fluid position-relative p-0"> #}
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
             <a href="{{path('index')}}" class="navbar-brand p-0">
 
@@ -84,9 +84,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
+                <a class="nav-item nav-link" id="audioBtn">Audio</a>
                 
                 {% if is_granted("ROLE_ADMIN") %} 
-                    <button class="btn-vacio nav-item nav-link" id="audioBtn">Audio</button>
+                    
                 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >
@@ -97,6 +98,9 @@
                             <a href="{{path('sala')}}" class="dropdown-item">Mesas</a>
                             <a href="{{path('lista_reservas')}}" class="dropdown-item">Reservas</a>
                             <a href="{{path('app_evento')}}" class="dropdown-item">Eventos</a>
+                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                            <a href="{{path('admin')}}" class="dropdown-item">Admin</a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endif %} 
@@ -116,7 +120,6 @@
                             {% endif %}
                         </a>
                         <div class="dropdown-menu m-0">
-                            <a href="{{url('app_user_reservas',{'id':app.user.id})}}" class="dropdown-item">Mi perfil</a>
                             <a href="{{url('app_user_reservas',{'id':app.user.id})}}" class="dropdown-item">Mis reservas</a>
                             <a href="{{path('app_logout')}}" class="dropdown-item">Cerrar sesión</a>
                         </div>
@@ -126,7 +129,7 @@
                 </div>
             </div>
         </nav> 
-
+    <header>
         <div id="modalLogin" class="modal">
             <div class="modal-contenido aparicion">
             <span class="cerrar">&times;</span>

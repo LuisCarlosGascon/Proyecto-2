@@ -28,6 +28,20 @@ class EventoController extends AbstractController
     #[Route('/eventoEditar/{id}', name: 'app_evento_editar')]
     public function editaEvento(EventoRepository $repo,int $id,Request $request,SluggerInterface $slugger,EntityManagerInterface $em,TramoRepository $repoT): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+
         $evento=$repo->find($id);
         $fecha=date_format($evento->getFecha(),'Y-m-d');
         $imagen=$evento->getImagen();
@@ -78,6 +92,20 @@ class EventoController extends AbstractController
     #[Route('/eventoCrear', name: 'app_evento_crear')]
     public function crear(): Response
     {
+        $valido=false;
+        if($this->getUser()==null){
+            $valido=false;
+        }else{
+            foreach($this->getUser()->getRoles() as $rol){
+                if($rol=="ROLE_ADMIN"){
+                    $valido=true;
+                }
+            }
+        }
+        if(!$valido){
+            return $this->redirectToRoute('index');
+        }
+        
         return $this->render('evento/crear.html.twig');
     }
 }
