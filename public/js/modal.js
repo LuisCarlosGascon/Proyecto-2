@@ -39,4 +39,14 @@ $(function(){
         modalJuegos.css({"display":"none"});
       }
     }
+
+    var btnAudio=$("#audioBtn");
+    var audio=document.getElementById("audio");
+    btnAudio.click(function(){
+      if(!audio.paused){
+        audio.pause();
+      }else{
+        audio.play();
+      }
+    })
 })

@@ -20,7 +20,7 @@ class EventoController extends AbstractController
     public function index(EventoRepository $repo): Response
     {
         $eventos=$repo->findAll();
-        return $this->render('evento/index.html.twig',[
+        return $this->render('evento/lista.html.twig',[
             "eventos"=>$eventos,
         ]);
     }
@@ -73,5 +73,11 @@ class EventoController extends AbstractController
             'fecha'=>$fecha,
             'tramos'=>$tramo
         ]);
+    }
+
+    #[Route('/eventoCrear', name: 'app_evento_crear')]
+    public function crear(): Response
+    {
+        return $this->render('evento/crear.html.twig');
     }
 }

@@ -169,7 +169,7 @@ $(function(){
           }
         $.ajax({
             type:"POST",
-            url:"http://localhost:8000/api/putReserva",
+            url:"http://localhost:8000/api/postReserva",
             data:JSON.stringify(reserva),
             dataType:"JSON",
             success:function(json){

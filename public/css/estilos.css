@@ -310,7 +310,7 @@ thead {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .c-sala {
@@ -409,6 +409,41 @@ thead {
   .c-datatable {
     margin-top: 65px;
     font-size: 12px;
+  }
+}
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.c-video {
+  margin-left: 29%;
+  margin-bottom: 60px;
+}
+
+.c-video__item {
+  width: 400px;
+  height: 300px;
+}
+
+.c-audio {
+  display: none;
+}
+
+@media (max-width: 887px) {
+  .c-video {
+    margin-left: 20%;
+  }
+}
+@media (max-width: 663px) {
+  .c-video {
+    margin-top: 50px;
+  }
+  .c-video__item {
+    width: 230px;
+    height: 130px;
   }
 }
 .ui-datepicker {

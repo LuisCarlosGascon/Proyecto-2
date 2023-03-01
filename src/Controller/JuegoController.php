@@ -19,7 +19,7 @@ class JuegoController extends AbstractController
     public function index(JuegoRepository $repo): Response
     {
         $juegos=$repo->findAll();
-        return $this->render('juego/index.html.twig', [
+        return $this->render('juego/lista.html.twig', [
             'juegos' => $juegos,
         ]);
     }

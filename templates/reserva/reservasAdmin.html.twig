@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+<script src="{{ asset('js/listaReservas.js')}}"></script>
+<style>
+.tablabuena{
+    margin-top:100px;
+}
+</style>
+<div class="container">
+    <div class="c-datatable">
+        <table id="reservasLista" class="display" style="width:100% ">
+            <thead>
+                <tr>
+                    <th data-source="user">Usuario</th>
+                    <th data-source="fecha">Fecha</th>
+                    <th data-source="juego">Juego</th>
+                    <th data-source="asiste">Asiste</th>
+                    <th data-source="f_cancelacion">Fecha cancelacion</th>
+                    <th data-source="mesa">Mesa</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div id="modalReserva" class="modalReserva"></div>
+
+{% endblock %}

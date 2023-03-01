@@ -1,0 +1,29 @@
+.c-video{
+    margin-left: 29%;
+    margin-bottom:60px;
+}
+
+.c-video__item{
+    width: 400px;
+    height: 300px;
+}
+
+.c-audio{
+    display: none;
+}
+
+@media (max-width: 887px) {
+    .c-video{
+        margin-left: 20%;
+    }
+}
+
+@media (max-width: 663px) {
+    .c-video{
+        margin-top: 50px;
+    }
+    .c-video__item{
+        width: 230px;
+        height: 130px;
+    }
+}
