@@ -67,6 +67,7 @@ $(function(){
     })
 
     btn.click(function(){
+        
         var evento={
             "evento":{
               "nombre":nombre.val(),
@@ -74,9 +75,10 @@ $(function(){
               "num_asistentes_max":asistentes.val(),
               "tramo":tramo.val(),
               "juego":juego.val(),
-              "imagen":imagen.val()
+              "users":nAsistentes.val()
             }
           }
+          console.log(evento)
         $.ajax({
             type:"POST",
             url:"http://localhost:8000/api/postEvento",
@@ -95,7 +97,7 @@ $(function(){
         div.css({"display":"none"});
     })
 
-    asistentes.keyup(function(){
+    asistentes.change(function(){
         
         if($(this).val()>0){
             nAsistentes.prop("disabled",false);

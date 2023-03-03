@@ -14,6 +14,8 @@ use App\Entity\Presentacion;
 use App\Repository\TramoRepository;
 use App\Repository\JuegoRepository;
 use App\Repository\PresentacionRepository;
+use App\Entity\Invitacion;
+use App\Repository\UserRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use PDOException;
@@ -118,7 +120,7 @@ class ApiEventoController extends AbstractController
     
     #[Route("/postEvento", name:"post_evento", methods:"POST")]
     
-    public function new(Request $request,EntityManagerInterface $em,TramoRepository $repoT,JuegoRepository $repoJ,EventoRepository $repoE,SluggerInterface $slugger): Response
+    public function new(Request $request,EntityManagerInterface $em,TramoRepository $repoT,JuegoRepository $repoJ,EventoRepository $repoE,SluggerInterface $slugger,UserRepository $repoU): Response
     {
  
         $datos=json_decode($request->getContent());
@@ -137,8 +139,18 @@ class ApiEventoController extends AbstractController
         $presentacion= new Presentacion();
         $presentacion->setEvento($repoE->find($evento->getId()));
         $presentacion->setJuego($repoJ->find($datos->evento->juego));
+
         $em->persist($presentacion);
         $em->flush($presentacion);
+
+
+        foreach($datos->evento->users as $user){
+            $invitacion=new Invitacion(); 
+            $invitacion->setEvento($repoE->find($evento->getId()));
+            $invitacion->setUser($repoU->find($user));
+            $em->persist($invitacion);
+            $em->flush($invitacion);
+        }
  
         return $this->json(['id'=> $evento->getId(),'Success'=>true], 202);
     }
