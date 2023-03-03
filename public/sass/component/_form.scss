@@ -1,38 +1,48 @@
-.c-registro{
+.c-formulario__g{
     margin-top: 10%;
     background: rgb(158,24,24);
     background: radial-gradient(circle, rgba(158,24,24,1) 0%, rgba(120,28,124,1) 100%);
     border-radius: 10px;
-    
-}
-
-.c-form-registro__titulo{
-    text-align: center;
-    color:white;
-}
-
-.c-form-registro__row{
     display:grid;
     grid-template-rows: 1fr 8fr 1fr;
 }
 
-.c-form-registro__col{
+.c-formulario__p{
+    margin-top: 10%;
+    background: rgb(158,24,24);
+    background: radial-gradient(circle, rgba(158,24,24,1) 0%, rgba(120,28,124,1) 100%);
+    border-radius: 10px;
+    display:grid;
+    grid-template-rows: 1fr 6fr 1fr;
+}
+
+.c-formulario__titulo{
+    text-align: center;
+    color:white;
+}
+
+// .c-form-registro__row{
+//     display:grid;
+//     grid-template-rows: 1fr 8fr 1fr;
+// }
+
+.c-formulario__col{
     display:grid;
     grid-template-columns: 1fr 1fr;
     gap:10%;
     padding-bottom: 2%;
     padding: 2%;
 }
-.c-form-registro__btn{
+.c-formulario__btn{
     display:flex;
     justify-content: center;
     width: 100%;
 }
 
-// .input-text-register{
-//     width: 40%;
-// }
+.c-formulario__file{
+    font-size: 12px;
+}
 
-.form-registro__label{
+.c-formulario__label{
     color:white;
 }

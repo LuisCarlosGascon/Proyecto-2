@@ -10,7 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evento;
+use App\Entity\Presentacion;
+use App\Repository\TramoRepository;
+use App\Repository\JuegoRepository;
+use App\Repository\PresentacionRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use PDOException;
+use DateTime;
 
 #[Route("/api", name:"api_")]
 class ApiEventoController extends AbstractController
@@ -111,21 +118,28 @@ class ApiEventoController extends AbstractController
     
     #[Route("/postEvento", name:"post_evento", methods:"POST")]
     
-    public function new(Request $request,EntityManagerInterface $em): Response
+    public function new(Request $request,EntityManagerInterface $em,TramoRepository $repoT,JuegoRepository $repoJ,EventoRepository $repoE,SluggerInterface $slugger): Response
     {
  
         $datos=json_decode($request->getContent());
 
+        $imagen=$repoJ->find($datos->evento->juego);
         $evento = new Evento();
         $evento->setNombre($datos->evento->nombre);
-        $evento->setFecha($datos->evento->fecha);
+        $evento->setFecha(new DateTime($datos->evento->fecha));
         $evento->setNumAsistentesMax($datos->evento->num_asistentes_max);
-        $evento->setTramo($datos->evento->tramo);
-        $evento->setImagen($datos->evento->imagen);
+        $evento->setTramo($repoT->find($datos->evento->tramo));
+        $evento->setImagen($imagen->getImagen());
  
         $em->persist($evento);
         $em->flush();
+
+        $presentacion= new Presentacion();
+        $presentacion->setEvento($repoE->find($evento->getId()));
+        $presentacion->setJuego($repoJ->find($datos->evento->juego));
+        $em->persist($presentacion);
+        $em->flush($presentacion);
  
-        return $this->json(['message'=>'Evento creado correctamente con el id ' . $evento->getId(),'Success'=>true], 202);
+        return $this->json(['id'=> $evento->getId(),'Success'=>true], 202);
     }
 }

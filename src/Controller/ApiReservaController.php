@@ -16,6 +16,7 @@ use App\Repository\MesaRepository;
 use App\Repository\JuegoRepository;
 use App\Repository\DistribucionRepository;
 use App\Repository\UserRepository;
+use App\Service\Telegram;
 use DateTime;
 use PDOException;
 
@@ -158,7 +159,7 @@ class ApiReservaController extends AbstractController
     
     #[Route("/postReserva", name:"post_reserva", methods:"POST")]
     
-    public function new(Request $request,EntityManagerInterface $em,MesaRepository $repoM,JuegoRepository $repoJ,TramoRepository $repoT,ReservaRepository $repoR): Response
+    public function new(Request $request,EntityManagerInterface $em,MesaRepository $repoM,JuegoRepository $repoJ,TramoRepository $repoT,ReservaRepository $repoR,Telegram $telegram): Response
     {
         $datos=json_decode($request->getContent());
 
@@ -178,6 +179,7 @@ class ApiReservaController extends AbstractController
  
         $em->persist($reserva);
         $em->flush();
+        $telegram->enviar($this->getUser()->getTelegram());
  
         return $this->json(['message'=>'Reserva creada correctamente con el id ' . $reserva->getId(),'Success'=>true], 202);
     }

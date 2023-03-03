@@ -8,7 +8,7 @@ $(function(){
     var btnAtras=$("#btn-atras");
     var alert1=$("#alert1");
     var alert4=$("#alert4");
-    var cerrar=$(".c-closebtn")
+    var cerrar=$(".c-closebtn");
 
     var sala=$("#sala");
     var trastero=$("#trastero");

@@ -15,46 +15,44 @@
     <div class="container">
     
         {{form_start(form)}}
-            <div class="c-registro c-form-registro__row p-3">
-                <div class="c-form-registro__titulo"><h1 class="h3">Registro</h1></div>
-            <div class="c-form-registro__col">
-                <div>
-                    <label class="form-registro__label">Nombre</label>
-                    {{form_widget(form.nombre,{'attr':{'class':'form-control'}})}}
+            <div class="c-formulario__g p-3">
+                <div class="c-formulario__titulo"><h1 class="h3">Registro</h1></div>
+                    <div class="c-formulario__col">
+                        <div>
+                            <label class="c-formulario__label">Nombre</label>
+                            {{form_widget(form.nombre,{'attr':{'class':'form-control'}})}}
         
-                    <label class="form-registro__label mt-2">Primer apellido</label>
-                    {{form_widget(form.ape1,{'attr':{'class':'form-control'}})}}
+                            <label class="c-formulario__label mt-2">Primer apellido</label>
+                            {{form_widget(form.ape1,{'attr':{'class':'form-control'}})}}
  
-                    <label class="form-registro__label mt-2">Segundo apellido</label>
-                    {{form_widget(form.ape2,{'attr':{'class':'form-control'}})}}
+                            <label class="c-formulario__label mt-2">Segundo apellido</label>
+                            {{form_widget(form.ape2,{'attr':{'class':'form-control'}})}}
 
-                    <label class="form-registro__label mt-2">Telefono</label>
-                    {{form_widget(form.telefono,{'attr':{'class':'form-control'}})}}
+                            <label class="c-formulario__label mt-2">Telefono</label>
+                            {{form_widget(form.telefono,{'attr':{'class':'form-control'}})}}
+                        </div>
+                        <div>
+                            <label class="c-formulario__label mt-2">Telegram</label>
+                            {{form_widget(form.telegram,{'attr':{'class':'form-control input-text-register'}})}}
+
+                            <label class="c-formulario__label mt-2">Email</label>
+                            {{form_widget(form.email,{'attr':{'class':'form-control'}})}}
+
+                            <label class="c-formulario__label mt-2">Foto de perfil</label>
+                            {{form_widget(form.imagen,{'attr':{'class':'form-control c-formulario__file'}})}}
        
-                    
-                </div>
-                <div>
-                    <label class="form-registro__label mt-2">Telegram</label>
-                    {{form_widget(form.telegram,{'attr':{'class':'form-control input-text-register'}})}}
-
-                    <label class="form-registro__label mt-2">Email</label>
-                    {{form_widget(form.email,{'attr':{'class':'form-control'}})}}
-
-                    <label class="form-registro__label mt-2">Foto de perfil</label>
-                    {{form_widget(form.imagen,{'attr':{'class':'form-control'}})}}
-       
-                    <label class="form-registro__label mt-2">Contraseña</label>
-                    {{form_widget(form.password,{'attr':{'class':'form-control'}})}}
+                            <label class="c-formulario__label mt-2">Contraseña</label>
+                            {{form_widget(form.password,{'attr':{'class':'form-control'}})}}
 
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 
-                </div>
-            </div>
-            <div class="c-form-registro__btn">
+                        </div>
+                    </div>
+                <div class="c-formulario__btn">
                 {{ form_widget(form.registrar, { 'label': 'Registrarme','attr':{'class':'btn btn-lg btn-primary'}}) }}
-            </div>       
-        </div>
+                </div>       
+            </div>
         {{form_end(form)}}
     </div>
     </div>
