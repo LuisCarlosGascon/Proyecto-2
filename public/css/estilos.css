@@ -314,6 +314,21 @@ thead {
     margin-top: 80px;
   }
 }
+.c-tablaE {
+  margin-top: 150px;
+  margin-left: 15%;
+  padding-bottom: 50px;
+}
+
+.c-tablaE__img {
+  width: 50px;
+  height: 50px;
+}
+
+#tabla-eventos {
+  width: 80%;
+}
+
 .btn-vacio {
   background-color: transparent;
   border: transparent;

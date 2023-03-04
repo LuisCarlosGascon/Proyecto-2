@@ -71,16 +71,28 @@ class ApiEventoController extends AbstractController
         return $this->json(['evento'=>$dato,'Success'=>true],201);
     }
 
-    #[Route("/deleteEvento/{id}", name:"delete_evento", methods:"DELETE")]
-     
+    #[Route("/deleteEvento/{id}", name:"delete_evento", methods:"GET")]
     public function delete(int $id,EntityManagerInterface $em): Response
     {
         
         $evento = $em->getRepository(Evento::class)->find($id);
+        $presentacion = $em->getRepository(Presentacion::class)->findBy(array("evento"=>$id));
+        $invitacion = $em->getRepository(Invitacion::class)->findBy(array("evento"=>$id));
  
         if (!$evento) {
-            return $this->json(['message'=>'Mesa no encontrada con el id: ' . $id,'Success'=>false], 404);
+            return $this->json(['message'=>'Evento no encontrado con el id: ' . $id,'Success'=>false], 404);
         }
+
+        foreach($presentacion as $p){
+            $em->remove($p);
+            $em->flush();
+        }
+
+        foreach($invitacion as $i){
+            $em->remove($i);
+            $em->flush();
+        }
+        
  
         $em->remove($evento);
         $em->flush();
@@ -91,21 +103,33 @@ class ApiEventoController extends AbstractController
     
     #[Route("/putEvento", name:"edit_evento", methods:"PUT")]
     
-    public function edit(Request $request,EventoRepository $repo,EntityManagerInterface $em): Response
+    public function edit(Request $request,EventoRepository $repo,EntityManagerInterface $em,TramoRepository $repoT,JuegoRepository $repoJ,UserRepository $repoU): Response
     {
         $datos=json_decode($request->getContent());
         $evento=$repo->find($datos->evento->id);
-        
+        $presentacion = $em->getRepository(Presentacion::class)->findBy(array("evento"=>$datos->evento->id));
+        $invitacion = $em->getRepository(Invitacion::class)->findBy(array("evento"=>$datos->evento->id));
+        $imagen=$repoJ->find($datos->evento->juego);
  
-        if (!$evento) {
-            return $this->json(['message'=>'Evento no encontrado','Success'=>false],404);
+        foreach($presentacion as $p){
+            $p->setJuego($repoJ->find($datos->evento->juego));
+            $em->persist($p);
+            $em->flush();
         }
- 
+
+        foreach($invitacion as $i){
+            foreach($datos->evento->users as $u){
+                $i->setUser($repoU->find($u));
+                $em->persist($i);
+                $em->flush();
+            }  
+        }
+
         $evento->setNombre($datos->evento->nombre);
-        $evento->setFecha($datos->evento->fecha);
+        $evento->setFecha(new DateTime($datos->evento->fecha));
         $evento->setNumAsistentesMax($datos->evento->num_asistentes_max);
-        $evento->setTramo($datos->evento->tramo);
-        $evento->setImagen($datos->evento->imagen);
+        $evento->setTramo($repoT->find($datos->evento->tramo));
+        $evento->setImagen($imagen->getImagen());
         
         try{
             $em->persist($evento);

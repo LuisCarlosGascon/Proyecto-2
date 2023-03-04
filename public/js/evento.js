@@ -5,7 +5,6 @@ $(function(){
     var btn=$("#btnEvento");
     var tramo=$("#juegoHora");
     var asistentes=$("#asistentesEvento");
-    var imagen=$("#imagenEvento");
     var nAsistentes=$("#nAsistentesEvento");
     var alert=$("#alert");
     var cerrar=$(".c-closebtn");

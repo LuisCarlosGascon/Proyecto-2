@@ -3,7 +3,7 @@
 {% block title %}Eventos{% endblock %}
 
 {% block body %}
-<div class="c-tabla">
+<div class="c-tablaJ pb-5">
 <table id="tabla-juegos" class="table c-tabla-item">
     <thead class="c-thead">
         <tr>
@@ -22,8 +22,8 @@
             <td class="c-tabla__descripcion">{{evento.fechaString}}</td>
             <td>{{evento.tramo}}</td>
             <td>{{evento.NumAsistentesMax}}</td>
-            <td><img src="{{asset('img/' ~ evento.imagen)}}" id="c-tabla__img" class="c-tabla__img"></td>
-            <td><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{url('app_juego_eliminar',{'id':evento.id})}}">&#10006</a></td>
+            <td><img src="{{asset('img/' ~ evento.imagen)}}" id="c-tabla__img" class="c-tablaE__img"></td>
+            <td><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{path('app_evento_eliminar',{'id':evento.id})}}">&#10006</a></td>
         </tr>
     {% endfor %}
     </tbody>

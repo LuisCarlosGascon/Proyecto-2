@@ -4,29 +4,42 @@
 
 {% block body %}
 <script src="{{ asset('js/evento.js')}}"></script>
+<script src="{{ asset('js/editarEvento.js')}}"></script>
+<div class="container">
+    <div class="c-formulario__p p-3">
+                <div class="c-formulario__titulo"><h1 class="h3">Editar Evento</h1></div>
+                    <div class="c-formulario__col">
+                        <div>
+                            <label class="c-formulario__label">Nombre</label>
+                            <input type="text" id="nombreEvento" class="form-control" value={{evento.nombre}} eventoId={{evento.id}}>
+        
+                            <label class="c-formulario__label mt-2">Juego</label>
+                            <select id="juegoEvento" class="form-control"></select>
 
-<div class="c-tabla">
-<table>
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Aforo máximo</th>
-            <th>Imagen</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="c-tabla-datos">
-            <td><input type="text" id="nombre" value={{evento.nombre}}></td>
-            <td><input type="text" id="evento_fecha" value={{fecha}}></td>
-            <td><select id="tramo">{% for tramo in tramos %}<option value={{tramo.id}}>{{tramo}}</option>{% endfor %}</select></td>
-            <td><input type="text" id="asistentes" value={{evento.NumAsistentesMax}}></td>
-            <td><input type="file" id="imagen"></td>
-        </tr>
-    </tbody>
-</table>
+                            <label class="c-formulario__label mt-2">Hora</label>
+                            <select id="juegoHora" class="form-control"></select>
+ 
+                            
+                        </div>
+                        <div>
+                            <label class="c-formulario__label ">Fecha</label>
+                            <input type="text" id="fechaEvento" class="form-control" value={{fecha}} readonly>
+ 
+                            
+                            <label class="c-formulario__label mt-2">Número de asistentes</label>
+                            <input type="number" id="asistentesEvento" class="form-control" value={{evento.NumAsistentesMax}}>
 
-<button id="btn-evento" class="btn btn-primary mt-5">Editar evento</button>
+                            <label class="c-formulario__label mt-2">Asistentes</label>
+                            <select id="nAsistentesEvento" class="form-control" multiple></select>
+                        </div>
+                    </div>
+                <div class="c-formulario__btn">
+                    <button class="btn btn-primary" id="btnEvento_editar">Editar evento</button>
+                </div>       
+            </div>
+    <div id="alertPut" class="c-alert success">
+        <span class="c-closebtn">&times;</span>  
+        <strong>¡Genial!</strong> El evento se ha editado correctamente.
+    </div>
 </div>
 {% endblock %}
