@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Xokas y Cía{% endblock %}</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                 {% endif %} 
-                    <a href="" class="nav-item nav-link">Eventos</a>
+                    <a href="{{path('app_evento')}}" class="nav-item nav-link">Eventos</a>
                     <a href="{{path('app_juegos')}}" class="nav-item nav-link">Juegos</a>
                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                         <a href="{{path('app_register')}}" class="nav-item nav-link">Registrarme</a>
@@ -120,6 +120,7 @@
                             {% endif %}
                         </a>
                         <div class="dropdown-menu m-0">
+                            <a href="{{url('perfil',{'id':app.user.id})}}" class="dropdown-item">Mi perfil</a>
                             <a href="{{url('app_user_reservas',{'id':app.user.id})}}" class="dropdown-item">Mis reservas</a>
                             <a href="{{path('app_logout')}}" class="dropdown-item">Cerrar sesión</a>
                         </div>

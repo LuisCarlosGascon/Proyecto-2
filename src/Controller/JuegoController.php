@@ -189,10 +189,10 @@ class JuegoController extends AbstractController
         return $this->redirect('/juegosMantenimiento');
     }
 
-    #[Route('/juegosDetalles', name: 'app_juegos_detalles')]
-    public function detalles(JuegoRepository $repo): Response
+    #[Route('/juegosDetalles/{id}', name: 'app_juegos_detalles')]
+    public function detalles(JuegoRepository $repo,int $id): Response
     {
-        $juego=$repo->find(2);
+        $juego=$repo->find($id);
         return $this->render('juego/detalle.html.twig',[
             "juego"=>$juego,
         ]);

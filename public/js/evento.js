@@ -33,9 +33,9 @@ $(function(){
         })
     })
 
-    nAsistentes.change(function () {
-        if($("select option:selected").length > asistentes.val()) {
-            
+    nAsistentes.on('click', 'option', function() {
+        if ($("select option:selected").length > asistentes.val()) {
+            $(this).removeAttr("selected");
         }
     });
 

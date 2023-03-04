@@ -83,7 +83,7 @@ class SecurityController extends AbstractController
             // $pdfCreado=$pdf->generatePdf($html);
             // return new Response($pdfCreado);
             
-            //return $this->redirectToRoute('app_index');
+            return $this->redirectToRoute('app_index');
 
         }
         return $this->render('security/register.html.twig',[

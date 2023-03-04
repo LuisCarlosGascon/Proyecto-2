@@ -34,7 +34,9 @@ class UserCrudController extends AbstractCrudController
                 ])
                 ->allowMultipleChoices(),
             IntegerField::new('telefono'),
+            TextField::new('email'),
             TextField::new('telegram'),
+            TextField::new('password'),
             ImageField::new('imagen')
                 ->setBasePath('public/img')
                 ->setUploadDir('public/img')

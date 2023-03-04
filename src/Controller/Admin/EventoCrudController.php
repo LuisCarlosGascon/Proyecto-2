@@ -26,13 +26,13 @@ class EventoCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('nombre'),
             DateField::new('fecha'),
+            AssociationField::new('presentacion'),
             AssociationField::new('tramo'),
             IntegerField::new('num_asistentes_max'),
             ImageField::new('imagen')
                 ->setBasePath('public/img')
                 ->setUploadDir('public/img')
                 ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]'),
-
         ];
     }
     

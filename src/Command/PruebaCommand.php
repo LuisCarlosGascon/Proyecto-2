@@ -9,15 +9,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Repository\MesaRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Mesa;
+use Doctrine\ORM\EntityManager;
 
 #[AsCommand(
-    name: 'prueba',
-    description: 'Add a short description for your command',
+    name: 'prueba',aliases:['prueba2']
 )]
 class PruebaCommand extends Command
 {
+    private $em;
     protected static $defaultName = 'app:author-weekly-report:send';
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        parent::__construct();
+        $this->em=$em;
+    }
+
     protected function configure()
     {
         $this
@@ -29,14 +38,25 @@ class PruebaCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
-        if ($input->getOption('option1')) {
-            // ...
-        }
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        
+        $mesa= new Mesa();
+
+        $alto=$io->ask('Alto de la Mesa');
+        $mesa->setAlto(intval($alto));
+
+        $ancho=$io->ask('Ancho de la Mesa');
+        $mesa->setAncho(intval($ancho));
+
+        $sillas=$io->ask('Sillas de la Mesa');
+        $mesa->setSillas(intval($sillas));
+
+        $mesa->setX(null);
+        $mesa->setY(null);
+
+        
+        $this->em->persist($mesa);
+        $this->em->flush();
+ 
         return 0;
     }
 }

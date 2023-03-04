@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mis reservas{% endblock %}
+
+{% block body %}
+
+<div class="container">
+{{form_start(form)}}
+    <div class="c-perfil">
+        <div class="c-perfil__datos">
+            <label class="c-formulario__label cb">Nombre</label>
+            {{form_widget(form.nombre,{'attr':{'class':'form-control','value':app.user.nombre}})}}
+        
+            <label class="c-formulario__label mt-2 cb">Primer apellido</label>
+            {{form_widget(form.ape1,{'attr':{'class':'form-control','value':app.user.ape1}})}}
+ 
+            <label class="c-formulario__label mt-2 cb">Segundo apellido</label>
+            {{form_widget(form.ape2,{'attr':{'class':'form-control','value':app.user.ape2}})}}
+
+            <label class="c-formulario__label mt-2 cb">Telefono</label>
+            {{form_widget(form.telefono,{'attr':{'class':'form-control','value':app.user.telefono}})}}
+
+            <label class="c-formulario__label mt-2 cb">Telegram</label>
+            {{form_widget(form.telegram,{'attr':{'class':'form-control input-text-register','value':app.user.telegram}})}}
+
+            <label class="c-formulario__label mt-2 cb">Email</label>
+            {{form_widget(form.email,{'attr':{'class':'form-control','value':app.user.email}})}}
+
+            <label class="c-formulario__label mt-2 cb">Foto de perfil</label>
+            {{form_widget(form.imagen,{'attr':{'class':'form-control c-formulario__file'}})}}
+
+            <label class="c-formulario__label mt-2 cb">Contraseña</label>
+            {{form_widget(form.password,{'attr':{'class':'form-control','value':app.user.nombre}})}}
+
+
+            {{ form_widget(form.registrar, { 'label': 'Guardar cambios','attr':{'class':'btn btn-lg btn-primary mt-5'}}) }}
+
+        </div>
+        <img src="{{asset('img/' ~ app.user.imagen)}}" class="c-perfil__imagen"> 
+    </div>
+{{form_end(form)}}
+</div>
+
+{% endblock %}

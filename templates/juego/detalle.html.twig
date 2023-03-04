@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <div class="c-cartaJuego veloz">
+    <div class="c-cartaJuego mb-3 veloz">
         <div class="c-cartaJuego__imagen">
             <img src="{{asset('img/' ~ juego.imagen)}}" class="c-cartaJuego__imagen-item ml-2">
         </div>
@@ -17,6 +17,10 @@
                 <tr>
                     <td>Tamaño</td>
                     <td>{{juego.alto}} x {{juego.ancho}}</td>
+                </tr>
+                <tr>
+                    <td>Descripción</td>
+                    <td>{{juego.descripcion}}</td>
                 </tr>
                 <tr>
                     <td>Mínimo de jugadores</td>

@@ -18,14 +18,14 @@ class Mailer
     public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
-        $this->subject='Prueba';
-        $this->text='Este correo es de prueba';
+        $this->subject='Cuenta creada';
+        $this->text='Te has registrado correctamente, ¡gracias por confiar en nosotros!';
     }
 
     public function sendEmail(User $user)
     {
         $email = (new Email())
-            ->from('lcgascon221@gmail.com')
+            ->from('symfonyluis@gmail.com')
             ->to($user->getEmail())
             ->subject($this->subject)
             ->text($this->text);

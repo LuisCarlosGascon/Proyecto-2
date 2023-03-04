@@ -12,7 +12,7 @@
             <th scope="col">Hora</th>
             <th scope="col">Aforo máximo</th>
             <th scope="col">Imagen</th>
-            <th scope="col">⚙</th>
+            {% if is_granted("ROLE_ADMIN")%}<th scope="col">⚙</th>{% endif %}
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
             <td>{{evento.tramo}}</td>
             <td>{{evento.NumAsistentesMax}}</td>
             <td><img src="{{asset('img/' ~ evento.imagen)}}" id="c-tabla__img" class="c-tablaE__img"></td>
-            <td><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{path('app_evento_eliminar',{'id':evento.id})}}">&#10006</a></td>
+            {% if is_granted("ROLE_ADMIN")%}<td><a href="{{url('app_evento_editar',{'id':evento.id})}}">&#9998</a><a href="{{path('app_evento_eliminar',{'id':evento.id})}}">&#10006</a></td>{% endif %}
         </tr>
     {% endfor %}
     </tbody>

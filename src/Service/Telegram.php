@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-
 Class Telegram{
 
     function enviar($id){

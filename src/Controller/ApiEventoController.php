@@ -118,12 +118,18 @@ class ApiEventoController extends AbstractController
         }
 
         foreach($invitacion as $i){
-            foreach($datos->evento->users as $u){
-                $i->setUser($repoU->find($u));
-                $em->persist($i);
-                $em->flush();
-            }  
+            $em->remove($i);
+            $em->flush();
         }
+            
+        foreach($datos->evento->users as $u){
+            $i=new Invitacion();
+            $i->setEvento($evento);
+            $i->setUser($repoU->find($u));
+            $em->persist($i);
+            $em->flush();
+        } 
+        
 
         $evento->setNombre($datos->evento->nombre);
         $evento->setFecha(new DateTime($datos->evento->fecha));
