@@ -14,9 +14,9 @@ use App\Entity\Mesa;
 use Doctrine\ORM\EntityManager;
 
 #[AsCommand(
-    name: 'prueba',aliases:['prueba2']
+    name: 'creaMesa',aliases:['prueba2']
 )]
-class PruebaCommand extends Command
+class creaMesa extends Command
 {
     private $em;
     protected static $defaultName = 'app:author-weekly-report:send';

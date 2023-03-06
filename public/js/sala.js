@@ -10,7 +10,7 @@ $("document").ready(function () {
   var sillas=$("#sillas")
   var btnCrear=$("#crear");
 
-
+  //crear mesas
   btnCrear.click(function(){
     if(alto.val()!=null && ancho.val()!=null && sillas.val()!=null){
       var mesa={
@@ -26,9 +26,7 @@ $("document").ready(function () {
         url:"http://localhost:8000/api/postMesa",
         data:JSON.stringify(mesa),
         dataType:"JSON",
-        success:function(json){
-          debugger
-          console.log(json["id"])
+        success:function(json){// añade la mesa al mapa y la hace draggable
           var mesaCreada=new Mesa(json.id,json.alto,json.ancho,json.sillas,null,null);
       
           mesaCreada.drag();
@@ -47,13 +45,12 @@ $("document").ready(function () {
     $('#trastero').droppable({
       drop:function (ev, ui) {
           let mesa = ui.draggable;    
-          
+          //tamaño por defecto de la mesa
           mesa.attr('style','width=50px;height=50px;');
           $(this).append(mesa);
-
+          //al señalar una distribucion,si una mesa no tiene ubicación se añade al trastero y a la bd 
           if(selectDis.val()!=null){
             $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.attr("id")+"/"+selectDis.val(),function(final){
-              console.log(final.distribuciones[0]["id"])
             
         
             if(final.distribuciones.length>0){
@@ -88,7 +85,6 @@ $("document").ready(function () {
                 dataType:"JSON"
               }); 
             }
-            // console.log(final.distribuciones[0]["id"]);
             
           });
         }else{

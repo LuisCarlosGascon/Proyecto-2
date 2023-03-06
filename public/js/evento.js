@@ -12,6 +12,7 @@ $(function(){
     nAsistentes.prop("disabled",true);
     fecha.css({"cursor":"pointer"});
 
+    //rellena el select de juegos
     $.getJSON("http://localhost:8000/api/getJuegos",function(data){
         const opciones=data['juegos'];
         $.each(opciones,function(i,v){
@@ -19,6 +20,7 @@ $(function(){
         })
     })
 
+    //rellena el select de tramos
     $.getJSON("http://localhost:8000/api/getTramos",function(data){
         const opciones=data['tramos'];
         $.each(opciones,function(i,v){
@@ -26,6 +28,7 @@ $(function(){
         })
     })
 
+    //rellena el select de usuarios
     $.getJSON("http://localhost:8000/api/getUserPuntos",function(data){
         const opciones=data['users'];
         $.each(opciones,function(i,v){
@@ -33,6 +36,7 @@ $(function(){
         })
     })
 
+    //según el número de usuarios máximos que tenga el evento, el select multiple te dejará señalar ese número de usuarios
     nAsistentes.on('click', 'option', function() {
         if ($("select option:selected").length > asistentes.val()) {
             $(this).removeAttr("selected");
@@ -65,6 +69,7 @@ $(function(){
         }
     })
 
+    //crea el evento
     btn.click(function(){
         
         var evento={
@@ -77,30 +82,32 @@ $(function(){
               "users":nAsistentes.val()
             }
           }
-          console.log(evento)
         $.ajax({
             type:"POST",
             url:"http://localhost:8000/api/postEvento",
             data:JSON.stringify(evento),
             dataType:"JSON",
             success:function(json){
+                //muestra el alert
                 if(json["Success"]){
                     alert.css({"display":"block"});
                 }
             }
-          });
+        });
     })
 
+    //cierra el alert
     cerrar.click(function(){
         var div=$(this).parent();
         div.css({"display":"none"});
     })
 
+    //valida que el número de asistentes máximos del evento
     asistentes.change(function(){
         
-        if($(this).val()>0){
+        if($(this).val()>0){//Si no es válido se deshabilita
             nAsistentes.prop("disabled",false);
-        }else{
+        }else{//Si es válido se habilita y se limpia su valor en caso de haber sido seleccionado anteriormente
             nAsistentes.prop("disabled",true);
             nAsistentes.val([]);
         }

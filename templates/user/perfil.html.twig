@@ -36,7 +36,11 @@
             {{ form_widget(form.registrar, { 'label': 'Guardar cambios','attr':{'class':'btn btn-lg btn-primary mt-5'}}) }}
 
         </div>
-        <img src="{{asset('img/' ~ app.user.imagen)}}" class="c-perfil__imagen"> 
+        {% if app.user.imagen %}
+        <img src="{{asset('img/' ~ app.user.imagen)}}" class="c-perfil__imagen">
+        {% else %}
+        <img src="{{asset('img/iconoBlanco.png')}}" class="c-perfil__imagen">
+        {% endif %} 
     </div>
 {{form_end(form)}}
 </div>

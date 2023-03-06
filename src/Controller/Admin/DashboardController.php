@@ -19,19 +19,19 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        $valido=false;
-        if($this->getUser()==null){
-            $valido=false;
-        }else{
-            foreach($this->getUser()->getRoles() as $rol){
-                if($rol=="ROLE_SUPER_ADMIN"){
-                    $valido=true;
-                }
-            }
-        }
-        if(!$valido){
-            return $this->redirectToRoute('index');
-        }
+        // $valido=false;
+        // if($this->getUser()==null){
+        //     $valido=false;
+        // }else{
+        //     foreach($this->getUser()->getRoles() as $rol){
+        //         if($rol=="ROLE_SUPER_ADMIN"){
+        //             $valido=true;
+        //         }
+        //     }
+        // }
+        // if(!$valido){
+        //     return $this->redirectToRoute('index');
+        // }
         return $this->render('admin/index.html.twig');
 
         // Option 1. You can make your dashboard redirect to some common page of your backend

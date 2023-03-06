@@ -30,9 +30,9 @@ $(function(){
         $("#tramo option:eq(0)").prop("selected",true);
         juegos.empty();
         $("#sala .mesa .img-drag").parent().empty();
-
     })
    
+    //boton de cerrar el alert
     cerrar.click(function(){
        var div=$(this).parent();
        div.css({"display":"none"});
@@ -40,6 +40,7 @@ $(function(){
     colocaBaseUser(sala,trastero,difX,difY);
     rellenaJugadores(2,10,$("#jugadores"))
     var a=new Date();
+    //inicializa la fecha por la de hoy
     fecha.val(a.getFullYear()+"-"+(a.getMonth()+1)+"-"+a.getDate()).css("cursor","pointer");
 
     btn.prop("disabled",true);
@@ -49,12 +50,14 @@ $(function(){
         btn.prop("disabled",false);
     })
 
+    //rellena el div con los juegos draggables
     jugadores.change(function(){
         juegos.empty();
         $.getJSON("http://localhost:8000/api/getJuegos",function(data){
             var nJugadores=jugadores.val();
             data["juegos"].forEach(juego=>{
                 if(juego["min_jugadores"]<=nJugadores && juego["max_jugadores"]>=nJugadores){
+                    //crea los juegos dependiendo de los jugadores seleccionados
                     var divJuego=$("<div>").attr({'id':juego["id"],'alto':juego["alto"],'ancho':juego["ancho"],"minJ":juego["min_jugadores"],"maxJ":juego["max_jugadores"]}).css({'width':'50px','height':'50px'}).addClass("img-drag").append($("<img>").attr({'src':'../img/'+juego["imagen"],'width':'100%','height':'100%'}));
                     juegos.append(divJuego);
                     divJuego.draggable({
@@ -70,7 +73,7 @@ $(function(){
         })
     })
     
-
+    //rellena el select de tramos
     $.getJSON("http://localhost:8000/api/getTramos",function(data){
         const opciones=data['tramos'];
         $.each(opciones,function(i,v){
@@ -78,6 +81,7 @@ $(function(){
         })
     })
 
+    //datapicker de fechas
     var festivos=["27/02/2023","28/02/2023","01/03/2023"];
     fecha.datepicker({
         dateFormat:"yy-mm-dd",
@@ -88,8 +92,8 @@ $(function(){
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
         firstDay:1,
         minDate:"+1D",
-        maxDate:"+3M +1D",
-        beforeShowDay: function(fecha){
+        maxDate:"+3M",
+        beforeShowDay: function(fecha){ //Señala los dias festivos y los fines de semana como cerrado
             var respuesta=[true,"",""];
             var dia=fecha.getDate();
             var mes=fecha.getMonth()+1;
@@ -106,6 +110,8 @@ $(function(){
             sala.empty();
             trastero.empty();
 
+            //Muestra el mapa de mesas según la distribución elegida
+
             $.getJSON("http://localhost:8000/api/getDistribucionReserva/"+selectedDate,function(id){
                 if(id["id"]==null){
                     colocaBaseUser(sala,trastero,difX,difY);
@@ -118,8 +124,9 @@ $(function(){
                             lista.push(mesa);
                         });
                         lista.forEach(mesa =>{
+                            //Por cada mesa lee su distribución
                             $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.id+"/"+id["id"].id,function(distIds){
-
+                                //si la mesa no tiene una ubicación para esa distribución se coloca en el trastero con posiciones null
                                 if(distIds["distribuciones"][0].x!=0){
                                     var coordenadas=distIds["distribuciones"][0];
                                     mesa.x=coordenadas.x;
@@ -131,11 +138,13 @@ $(function(){
 
                                 //mesa.drag();
                                 mesa.pinta(sala,trastero,difX,difY);
+                                //hace las mesas droppables para los juegos
                                 $("#sala .mesa").droppable({
             
                                     drop: function (ev, ui) {
                                     let juego = ui.draggable;
-                                
+
+                                    //comprueba que el juego sea compatible con la mesa
                                     if(compruebaJuegoMesa(juego,$(this),$("#jugadores").val())){
                                         $("#tramo").prop("disabled",false);
                                         $("#jugadores").prop("disabled",true);
@@ -158,6 +167,7 @@ $(function(){
         }
     })
 
+    //crea la reserva
     btn.click(function(){
         var reserva={
             "reserva":{
@@ -175,7 +185,7 @@ $(function(){
             success:function(json){
                 if(json["Success"]==false){
                     alert1.css({"display":"block"});
-                }else{
+                }else{//Limpia el formulario en caso de que se realice la reserva correctamente
                     btn.prop("disabled",true);
                     fecha.prop("disabled",false);
                     base.prop("disabled",false);
@@ -194,6 +204,7 @@ $(function(){
     })
 })
 
+//Coloca el mapa base de las mesas
 function colocaBaseUser(sala,trastero,difX,difY){
     sala.empty();
     trastero.empty();
@@ -208,7 +219,7 @@ function colocaBaseUser(sala,trastero,difX,difY){
             
             drop: function (ev, ui) {
               let juego = ui.draggable;
-            
+            //Comprueba si el juego es valido para la mesa droppeada
               if(compruebaJuegoMesa(juego,$(this),$("#jugadores").val())){
                 $("#tramo").prop("disabled",false);
                 $("#jugadores").prop("disabled",true);
@@ -234,6 +245,7 @@ function rellenaJugadores(min,max,select){
     }
 }
 
+//en funcion de la restricción violada, muestra su propio alert de fallo
 function compruebaJuegoMesa(juego,mesa,jugadores){
     var resultado;
     if(!(parseInt(juego.attr("alto"))<=parseInt(mesa.attr("alto"))) || !(parseInt(juego.attr("ancho"))<=parseInt(mesa.attr("ancho")))){

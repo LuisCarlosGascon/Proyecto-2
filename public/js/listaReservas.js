@@ -5,6 +5,7 @@ $(function(){
     $.getJSON("http://localhost:8000/api/getReservas",function(data){
         var datos=data["reservas"];
 
+        //rellena el datapicker con los datos de las reservas
         var datatable=lista.DataTable({
             data:datos,
             responsive:true,
@@ -16,6 +17,7 @@ $(function(){
                 {data:'f_cancelacion'},
                 {data:'mesa'}
             ],
+            //cambia el idioma a español
             language: {
                 "emptyTable": "No hay información",
                 "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
@@ -37,10 +39,12 @@ $(function(){
             },
         })
 
+        //al clicar en una reserva, aparece un dialog para decir si ha asistido o no a la reserva el usuario
         $("#reservasLista tbody").on('click', 'tr', function () {
             modal.empty();
             var data = datatable.row(this).data();
             var val;
+            //texto que se enseña en el datatable según el estado de su asistencia
             if(data["asiste"]=="Esperando..."){
                 val="Esperando...";
             }else if(data["asiste"]=="No"){
@@ -61,6 +65,7 @@ $(function(){
             modal.dialog().append(html);
             $(".ui-dialog-titlebar-close").eq(0).text("Cerrar");
 
+            //guarda en la bd si asiste a la reserva
             $("#btn-si").click(function(){
                 var asiste={
                     "reserva":{
@@ -77,6 +82,7 @@ $(function(){
                   modal.dialog("close");
             })
 
+            //guarda en la bd si no asiste a la reserva
             $("#btn-no").click(function(){
                 var asiste={
                     "reserva":{

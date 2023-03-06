@@ -21,6 +21,7 @@ $(function(){
         })
     })
 
+    //cambia la disposición
     selectDis.change(function(){
         sala.empty();
         trastero.empty();
@@ -32,8 +33,10 @@ $(function(){
                 var mesa=new Mesa(element.id,element.alto,element.ancho,element.sillas,element.x,element.y);
                 lista.push(mesa);
             });
+            //por cada mesa coge la ubicación de la disposicion seleccionada
             lista.forEach(mesa =>{
                 $.getJSON("http://localhost:8000/api/getMesaDistribucion/"+mesa.id+"/"+selectDis.val(),function(distIds){
+                    //si no existe disposicion de esa mesa para la disposicion la ubica en el trastero
                     if(distIds["distribuciones"][0]===undefined){
                         var distribuciones={
                             "disposiciones":{
@@ -70,6 +73,7 @@ $(function(){
         })
     })
 
+    //muestra el mapa de mesas base
     base.click(function(){
         colocaBase(sala,trastero,difX,difY);
         $("#selectDis option:eq(0)").prop("selected",true);
@@ -77,6 +81,7 @@ $(function(){
 
     
 
+    //rellena el datapicker de distribuciones
     var festivos=["27/02/2023","28/02/2023","01/03/2023"];
     distribucionNueva.datepicker({
         dateFormat:"yy-mm-dd",
@@ -98,6 +103,7 @@ $(function(){
             var cadenaFecha2=anno+"-"+
             ((mes<10)?"0"+mes:mes)+"-"+((dia<10)?"0"+dia:dia)
 
+            //indica si una fecha no es válida en caso de que esté cerrado o ya haya una distribucion hecha para ese día
             opcionesSelect.forEach(element=>{
                 if(fecha.getDay()%6==0 || festivos.indexOf(cadenaFecha)>-1){
                     respuesta=[false,"","cerrado"];
@@ -113,6 +119,7 @@ $(function(){
         }
     })
 
+    //Crea la distribucion de la fecha
     btnDist.click(function(){
         var distribucion={
             "distribucion":{

@@ -179,7 +179,7 @@ class ApiReservaController extends AbstractController
  
         $em->persist($reserva);
         $em->flush();
-        $telegram->enviar($this->getUser()->getTelegram());
+        // $telegram->enviar($this->getUser()->getTelegram());
  
         return $this->json(['message'=>'Reserva creada correctamente con el id ' . $reserva->getId(),'Success'=>true], 202);
     }

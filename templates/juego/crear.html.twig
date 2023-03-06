@@ -6,7 +6,7 @@
 <section>
     <div class="c-tablaJM">
         {{ form_start(form) }}
-        <table id="tabla-juegos" class="table">
+        <table id="tablaId" class="table">
             <thead class="c-thead">
                 <tr>
                     <th scope="col" id="c-tablaJM__th">Nombre</th>
@@ -17,15 +17,15 @@
             </thead>
             <tbody>
                 <tr class="c-tabla-datos">
-                    <td class="tr-juegos">{{form_widget(form.nombre,{'attr':{'class':'c-tablaJM__td'}})}}</td>
-                    <td class="tr-juegos">{{form_widget(form.descripcion,{'attr':{'class':'c-tablaJM__td'}})}}</td>
-                    <td class="tr-juegos">{{form_widget(form.min_jugadores,{'attr':{'class':'c-tablaJM__td'}})}}</td>
-                    <td class="tr-juegos">{{form_widget(form.max_jugadores,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.nombre,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.descripcion,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.min_jugadores,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
+                    <td class="tr-juegos">{{form_widget(form.max_jugadores,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
                 </tr>
             </tbody>
         </table>
 
-        <table id="tabla-juegos" class="table mt-4">
+        <table id="tablaId" class="table mt-4">
             <thead class="c-thead">
                 <tr>
                     <th scope="col"  id="c-tablaJM__th">Alto</th>
@@ -35,9 +35,9 @@
             </thead>
             <tbody>
                 <tr class="c-tabla-datos">
-                    <td>{{form_widget(form.alto,{'attr':{'class':'c-tablaJM__td'}})}}</td>
-                    <td>{{form_widget(form.ancho,{'attr':{'class':'c-tablaJM__td'}})}}</td>
-                    <td>{{form_widget(form.imagen,{'attr':{'class':'c-tablaJM__td'}})}}</td>
+                    <td>{{form_widget(form.alto,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
+                    <td>{{form_widget(form.ancho,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
+                    <td>{{form_widget(form.imagen,{'attr':{'class':'c-tablaJM__td form-control'}})}}</td>
                 </tr>
             </tbody>
         </table>

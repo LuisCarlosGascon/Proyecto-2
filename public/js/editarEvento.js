@@ -23,7 +23,6 @@ $(function(){
               "users":nAsistentes.val()
             }
           }
-          console.log(evento)
         $.ajax({
             type:"PUT",
             url:"http://localhost:8000/api/putEvento",
