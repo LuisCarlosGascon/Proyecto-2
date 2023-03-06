@@ -1,3 +1,52 @@
+table{
+    text-align: left;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th,td{
+    padding:20px;
+    transition: all 0.5s;
+}
+
+th:hover{
+    background-color: rgb(72, 72, 72);
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+thead{
+    background-color: black;
+    color:#06A3DA;
+}
+
+.c-tabla__datos:nth-child(even){
+    background-color: #8b5cf6;
+    color:black;
+    transition: all 0.3s;
+}
+.c-tabla__datos:nth-child(even):hover{
+    background-color: #662af2;
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+.c-tabla__datos:nth-child(odd){
+    background-color: #c4b5fd;
+    color:black;
+    transition: all 0.3s;
+}
+
+.c-tabla__datos:nth-child(odd):hover{
+    background-color: #8668ff;
+    transition-property: background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+
 // TABLA JUEGOS
 
 .c-tablaJ{
@@ -44,6 +93,7 @@
 @media (max-width:992px){
     .c-tablaJM{
         font-size: 12px;
+        margin-right: auto;
     }
     .c-tablaJM__td-imgInput{
         width: 120px;
@@ -110,38 +160,6 @@
     height: 50px;
 }
 
-table{
-    text-align: left;
-    border-collapse: collapse;
-    width: 80%;
-}
-
-th,td{
-    padding:20px;
-    transition: all 0.5s;
-}
-
-th:hover{
-    background-color: rgb(72, 72, 72);
-    transition-property: background-color;
-    transition-duration: 0.3s;
-    transition-timing-function: linear;
-}
-
-thead{
-    background-color: black;
-    color:#06A3DA;
-}
-
-.c-tabla-datos:nth-child(even){
-    background-color: #8b5cf6;
-    color:black;
-}
-.c-tabla-datos:nth-child(odd){
-    background-color: #c4b5fd;
-    color:black;
-}
-
 // MIS RESERVAS
 
 .c-tablaRM{
@@ -150,16 +168,6 @@ thead{
     // margin-left: 150px;
     margin-left:auto;
     margin-right:auto;
-}
-
-.c-tabla__datos:nth-child(even){
-    background-color: #8b5cf6;
-    color:black;
-}
-
-.c-tabla__datos:nth-child(odd){
-    background-color: #c4b5fd;
-    color:black;
 }
 
 @media (max-width: 550px) {
