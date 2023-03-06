@@ -3,7 +3,7 @@
 {% block title %}Eventos{% endblock %}
 
 {% block body %}
-<div class="c-tablaJ pb-5">
+<div class="c-tablaJ pb-5 mb-5">
 <table id="tablaId" class="table">
     <thead class="c-thead">
         <tr>
@@ -13,7 +13,7 @@
             <th scope="col">Aforo máximo</th>
             <th scope="col">Imagen</th>
             {% if is_granted("ROLE_ADMIN")%}<th scope="col">⚙</th>{% endif %}
-        </tr>
+        </tr> 
     </thead>
     <tbody>
     {% for evento in eventos %}
