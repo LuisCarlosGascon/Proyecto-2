@@ -82,6 +82,7 @@ thead{
 .c-tablaJM{
     margin-top:150px;
     margin-left:auto;
+    margin-right:auto;
     width: 80%;
 }  
 
@@ -133,8 +134,19 @@ thead{
     #c-tablaJM__th-Img{
         display:none
     }
-    .tr-juegos-Img{
+
+    .c-tablaJM__td-img{
         display:none;
+    }
+    .td-juegos-Img{
+        display:none;
+    }
+    #juego_imagen{
+        width: 100px;
+    }
+
+    .c-tablaJM__nombre{
+        width: 80px;
     }
 }
 

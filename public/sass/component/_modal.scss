@@ -1,4 +1,4 @@
-.modal{
+.c-modal{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -12,7 +12,7 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.modal-contenido{
+.c-modal__contenido{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -32,6 +32,16 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media (max-width:497px){
+  .c-modal__input{
+    font-size:11px;
+  }
+
+  .c-modal__btn{
+    font-size:11px;
+  }
 }
 
 .aparicion { 

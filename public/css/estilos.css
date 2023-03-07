@@ -48,7 +48,7 @@ body {
   background: linear-gradient(90deg, rgb(164, 211, 255) 0%, rgb(255, 147, 147) 100%);
 }
 
-.modal {
+.c-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -62,7 +62,7 @@ body {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-.modal-contenido {
+.c-modal__contenido {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -84,6 +84,14 @@ body {
   cursor: pointer;
 }
 
+@media (max-width: 497px) {
+  .c-modal__input {
+    font-size: 11px;
+  }
+  .c-modal__btn {
+    font-size: 11px;
+  }
+}
 .aparicion {
   -webkit-animation: 1s aparicion 1;
           animation: 1s aparicion 1;
@@ -161,6 +169,10 @@ body {
   width: 100%;
 }
 
+.c-login {
+  margin-top: 130px;
+}
+
 .c-formulario__file {
   font-size: 12px;
 }
@@ -169,6 +181,11 @@ body {
   color: white;
 }
 
+@media (max-width: 428px) {
+  .c-formulario__input {
+    font-size: 12px;
+  }
+}
 .form-control:hover {
   -webkit-box-shadow: 0px 0px 33px -7px #1D1D1D;
           box-shadow: 0px 0px 33px -7px #1D1D1D;
@@ -272,6 +289,7 @@ thead {
 .c-tablaJM {
   margin-top: 150px;
   margin-left: auto;
+  margin-right: auto;
   width: 80%;
 }
 
@@ -317,8 +335,17 @@ thead {
   #c-tablaJM__th-Img {
     display: none;
   }
-  .tr-juegos-Img {
+  .c-tablaJM__td-img {
     display: none;
+  }
+  .td-juegos-Img {
+    display: none;
+  }
+  #juego_imagen {
+    width: 100px;
+  }
+  .c-tablaJM__nombre {
+    width: 80px;
   }
 }
 @media (max-width: 387px) {

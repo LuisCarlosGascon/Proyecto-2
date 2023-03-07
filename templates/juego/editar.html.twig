@@ -17,7 +17,7 @@
     </thead>
     <tbody>
         <tr class="c-tabla__datos">
-            <td>{{form_widget(form.nombre,{'attr':{'value':juego.nombre},'class':'c-tablaJM__td'})}}</td>
+            <td>{{form_widget(form.nombre,{'attr':{'value':juego.nombre,'class':'c-tablaJM__td c-tablaJM__nombre'}})}}</td>
             <td>{{form_widget(form.descripcion,{'value':juego.descripcion,'attr':{'class':'c-tablaJM__td'}})}}</td>
             <td>{{form_widget(form.min_jugadores,{'attr':{'value':juego.MinJugadores,'class':'c-tablaJM__td'}})}}</td>
             <td>{{form_widget(form.max_jugadores,{'attr':{'value':juego.MaxJugadores,'class':'c-tablaJM__td'}})}}</td>

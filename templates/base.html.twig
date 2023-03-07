@@ -133,8 +133,8 @@
             </div>
         </nav>  
     </header>
-        <div id="modalLogin" class="modal">
-            <div class="modal-contenido aparicion">
+        <div id="modalLogin" class="c-modal">
+            <div class="c-modal__contenido aparicion">
             <span class="cerrar">&times;</span>
                 <div class="container">
                     <div class="row">
@@ -143,15 +143,15 @@
                                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
                                 <div class="col-12 mt-2">
                                 <label for="inputEmail" class="sr-only">Email</label>
-                                <input type="email" name="_username" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                                <input type="email" name="_username" id="inputEmail" class="form-control c-modal__input" placeholder="Email" required autofocus>
                                 </div>
                                 <div class="col-12 mt-2">
                                 <label for="inputPassword" class="sr-only">Contraseña</label>
-                                <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+                                <input type="password" name="_password" id="inputPassword" class="form-control c-modal__input" placeholder="Contraseña" required>
                                 </div>
                                 <div class="col-12 mt-2">
                                 <input type="hidden" name="_target_path" value="/index">
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar Sesión</button>
+                                <button class="btn btn-lg btn-primary btn-block c-modal__btn" type="submit">Iniciar Sesión</button>
                                 </div>
                             </form>
                         ¿No tienes una cuenta? <a href="{{path('app_register')}}">Crear cuenta</a>
